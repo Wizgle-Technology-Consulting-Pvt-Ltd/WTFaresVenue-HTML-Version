@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ListKit</title>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MHNTCVZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHNTCVZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="pageloader" class="pageloader is-left-to-right"></div>
+    <div id="infraloader" class="infraloader is-active"></div>
+
+    <main>
+<!--Main Navbar-->
+<div
+  class="main-navigation-light"
+  x-data="initNavbarLight()"
+  x-on:scroll.window="scroll()"
+  x-on:mouseleave="megamenuOpened = false"
+  x-bind:class="{
+        'is-scrolled': scrolled,
+        '': !scrolled,
+        'is-solid': megamenuOpened,
+        '': !megamenuOpened,
+    }"
+>
+  <div class="main-navigation--menu">
+    <div class="container">
+      <div class="main-navigation--menu-inner">
+        <div class="left">
+          <a href="/" class="brand">
+            <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
+            <img class="dark-logo" src="img/logo/logo.svg" alt="" />
+          </a>
+        </div>
+
+        <div class="center">
+          <div
+            class="navigation-link has-caret"
+            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-1'"
+          >
+            <a class="is-flex is-align-items-center">
+              <span>Events</span>
+              <i data-feather="chevron-down"></i>
+            </a>
+          </div>
+          <div
+            class="navigation-link has-caret"
+            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-2'"
+          >
+            <a class="is-flex is-align-items-center">
+              <span>Trips</span>
+              <i data-feather="chevron-down"></i>
+            </a>
+          </div>
+          <div
+            class="navigation-link has-caret"
+            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-3'"
+          >
+            <a class="is-flex is-align-items-center">
+              <span>Flats</span>
+              <i data-feather="chevron-down"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="navigation-link is-host">
+            <a>Host Event</a>
+          </div>
+          <button
+            class="navigation-link is-icon mx-4 modal-trigger"
+            data-modal="languages-modal"
+          >
+            <i data-feather="globe"></i>
+          </button>
+          <div class="account-drop">
+            <button
+              x-on:click="openDrop('account-drop')"
+              x-on:click.away="closeDrop('account-drop')"
+            >
+              <span class="image is-32x32">
+                <img
+                  x-show="$store.app.isLoggedIn === false"
+                  class="is-rounded"
+                  src="https://dummyimage.com/150x150"
+                  data-demo-src="img/photo/avatar/placeholder.png"
+                  alt=""
+                />
+                <img
+                  x-show="$store.app.isLoggedIn === true"
+                  class="is-rounded"
+                  src="https://dummyimage.com/150x150"
+                  data-demo-src="img/photo/avatar/19.jpg"
+                  alt=""
+                />
+              </span>
+            </button>
+            <div x-show.transition="accountDropOpened" class="drop-menu">
+              <div class="drop-menu-inner">
+                <a
+                  href="login.html"
+                  x-show="$store.app.isLoggedIn === false"
+                  class="drop-menu-item is-heavy"
+                  >Sign In</a
+                >
+                <a
+                  href="signup.html"
+                  x-show="$store.app.isLoggedIn === false"
+                  class="drop-menu-item"
+                  >Register</a
+                >
+                <a
+                  href="account-main.html"
+                  x-show="$store.app.isLoggedIn === true"
+                  class="drop-menu-item"
+                  >Account</a
+                >
+                <a
+                  href="account-main.html"
+                  x-show="$store.app.isLoggedIn === true"
+                  class="drop-menu-item"
+                  >Settings</a
+                >
+                <a
+                  href="account-schedule.html"
+                  x-show="$store.app.isLoggedIn === true"
+                  class="drop-menu-item"
+                  >Schedule</a
+                >
+                <hr />
+                <a href="host.html" class="drop-menu-item">Host Event</a>
+                <a href="events.html" class="drop-menu-item">Explore Events</a>
+                <a href="how.html" class="drop-menu-item">Help</a>
+                <a
+                  x-show="$store.app.isLoggedIn === true"
+                  class="drop-menu-item"
+                  x-on:click="logout()"
+                  >Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="megamenu"
+    x-bind:class="{
+      'is-active': megamenuOpened,
+      '': !megamenuOpened,
+    }"
+  >
+    <!--Megamenu 1-->
+    <div x-show="openedMegamenu === 'megamenu-1'" class="megamenu-inner">
+      <button class="close-button" x-on:click="megamenuOpened = !megamenuOpened">
+        <i data-feather="arrow-left"></i>
+      </button>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="megamenu-block">
+              <div class="media">
+                <div class="media-left text-primary">
+                  <span class="fas fa-2x fa-cocktail"></span>
+                </div>
+                <div class="media-content">
+                  <h3 class="text-rainbow">Social Events</h3>
+                  <p>
+                    Explore a wide variety of events and services provided by
+                    members of our huge community.
+                  </p>
+                  <a href="events.html" class="arrow-link">
+                    <span>Explore scheduled events</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block has-margin">
+              <h4 class="text-rainbow">Trending now</h4>
+              <ul>
+                <li>
+                  <a href="events.html" class="arrow-link">
+                    <span>Reading groups</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="events.html" class="arrow-link">
+                    <span>Shopping meetups</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="events.html" class="arrow-link">
+                    <span>Gaming parties</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block is-left-bordered">
+              <div class="media">
+                <div class="media-content">
+                  <h3 class="text-rainbow">Schedule an event</h3>
+                  <p>
+                    Learn how you can start hosting events and offering services
+                    on our platform.
+                  </p>
+                  <a href="host.html" class="arrow-link">
+                    <span>Become a Host</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!--Megamenu 2-->
+    <div x-show="openedMegamenu === 'megamenu-2'" class="megamenu-inner">
+      <button class="close-button" x-on:click="megamenuOpened = !megamenuOpened">
+        <i data-feather="arrow-left"></i>
+      </button>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="megamenu-block">
+              <div class="media">
+                <div class="media-left text-primary">
+                  <span class="fas fa-2x fa-suitcase-rolling"></span>
+                </div>
+                <div class="media-content">
+                  <h3 class="text-rainbow">Planned Trips</h3>
+                  <p>
+                    Explore a wide variety of road and luxury trips hosted by
+                    members of our community.
+                  </p>
+                  <a href="trips.html" class="arrow-link">
+                    <span>Explore scheduled trips</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block has-margin">
+              <h4 class="text-rainbow">Categories</h4>
+              <div class="tags">
+                <a href="home-2.html" class="tag is-rounded">Trekking</a>
+                <a href="home-2.html" class="tag is-rounded">Adventure</a>
+                <a href="home-2.html" class="tag is-rounded">Discovery</a>
+                <a href="home-2.html" class="tag is-rounded">Climbing</a>
+                <a href="home-2.html" class="tag is-rounded">Bicycle</a>
+                <a href="home-2.html" class="tag is-rounded">Scuba diving</a>
+                <a href="home-2.html" class="tag is-rounded">Safari</a>
+                <a href="home-2.html" class="tag is-rounded">Rafting</a>
+                <a href="home-2.html" class="tag is-rounded">Survival</a>
+                <a href="home-2.html" class="tag is-rounded">Speleology</a>
+                <a href="home-2.html" class="tag is-rounded">Hunting</a>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block is-left-bordered">
+              <div class="media">
+                <div class="media-content">
+                  <h3 class="text-rainbow">Try our luxury trips</h3>
+                  <p>
+                    Not the adventurer type? Discover dozens of luxury trips in a
+                    wide selection of locations.
+                  </p>
+                  <a href="trips.html" class="arrow-link">
+                    <span>Explore luxury trips</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!--Megamenu 3-->
+    <div x-show="openedMegamenu === 'megamenu-3'" class="megamenu-inner">
+      <button class="close-button" x-on:click="megamenuOpened = !megamenuOpened">
+        <i data-feather="arrow-left"></i>
+      </button>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="megamenu-block">
+              <div class="media">
+                <div class="media-left text-primary">
+                  <span class="fas fa-2x fa-igloo"></span>
+                </div>
+                <div class="media-content">
+                  <h3 class="text-rainbow">Flats & Homes</h3>
+                  <p>
+                    Explore a wide variety of events and services provided by
+                    members of our huge community.
+                  </p>
+                  <a href="flats.html" class="arrow-link">
+                    <span>Find a flat nearby</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block has-margin">
+              <h4 class="text-rainbow">Recently Added</h4>
+              <div class="block-list">
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/9.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/10.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/11.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/12.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/13.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/14.jpg" alt=""
+                  />
+                </div>
+              </div>
+              <a href="#" class="arrow-link mt-4">
+                <span>View all</span>
+                <i data-feather="arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block is-left-bordered">
+              <div class="media">
+                <div class="media-content">
+                  <h3 class="text-rainbow">Submit your flat</h3>
+                  <p>
+                    Looking to generate revenue with your unused flat? Learn more
+                    about our terms.
+                  </p>
+                  <a href="#" class="arrow-link">
+                    <span>Learn more</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="hero is-big is-grey is-bold"
+  data-background="https://dummyimage.com/1920x1080"
+  data-demo-background="img/photo/bg/team-happy.jpg"
+>
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-6">
+          <div class="card card-form careers-card-form">
+            <div class="hero-text">
+              <h1 class="title is-1 is-bold">Join a great team.</h1>
+              <p class="subtitle is-left">
+                At Listkit, we're a great family of developers and business
+                people. Wanna join us?
+              </p>
+              <div class="buttons">
+                <a class="button is-primary is-raised-hover mx-1">View Jobs</a>
+                <a class="button is-heavy mx-1">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <div class="py-6">
+      <div class="boxed-text">
+        <h4 class="subtitle is-6 pb-2 text-primary">WHO WE ARE</h4>
+        <h2 class="title is-3 is-bold">We're a dynamic team of hardworkers.</h2>
+        <p class="stressed-1 mb-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc de
+          hominis summo bono quaeritur; Res enim concurrent contrariae. Vide,
+          quantum, inquam, fallare, Torquate. Duo Reges: constructio interrete.
+        </p>
+        <p class="stressed-1 mb-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc de
+          hominis summo bono quaeritur; Res enim concurrent contrariae. Vide,
+          quantum, inquam, fallare, Torquate. Duo Reges: constructio interrete.
+          Inquit, dasne adolescenti veniam? Maximus dolor, inquit, brevis est.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc de
+          hominis summo bono quaeritur; Res enim concurrent contrariae.
+        </p>
+        <p class="stressed-1">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc de
+          hominis summo bono quaeritur; Res enim concurrent contrariae. Vide,
+          quantum, inquam, fallare, Torquate. Duo Reges: constructio interrete.
+          Inquit, dasne adolescenti veniam?
+        </p>
+      </div>
+    </div>
+
+    <div class="py-6" x-data="initCareerTabs()">
+      <div x-show="activeTab === 'tab-1'" class="columns is-vcentered">
+        <div class="column is-5 is-offset-1 b-centered-tablet-p">
+          <h4 class="subtitle is-6 pb-2 text-primary">BE CREATIVE</h4>
+          <h2 class="title is-3 is-bold is-spaced">We value creators.</h2>
+          <p class="subtitle is-left text-l2">
+            We believe that creativity is everything you need to grow a
+            business. The more you'll be creative, the more we'll be wanting
+            you.
+          </p>
+        </div>
+        <div class="column is-5">
+          <img
+            class="careers-image"
+            src="img/illustrations/stories/18.svg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div x-show="activeTab === 'tab-2'" class="columns is-vcentered">
+        <div class="column is-5 is-offset-1 b-centered-tablet-p">
+          <h4 class="subtitle is-6 pb-2 text-primary">WORK TOGETHER</h4>
+          <h2 class="title is-3 is-bold is-spaced">We value collaboration.</h2>
+          <p class="subtitle is-left text-l2">
+            Collaboration is also one of the most important traits of modern
+            business. Working together strenghtens the business.
+          </p>
+        </div>
+        <div class="column is-5">
+          <img
+            class="careers-image"
+            src="img/illustrations/stories/19.svg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div x-show="activeTab === 'tab-3'" class="columns is-vcentered">
+        <div class="column is-5 is-offset-1 b-centered-tablet-p">
+          <h4 class="subtitle is-6 pb-2 text-primary">HAVE A LIFE</h4>
+          <h2 class="title is-3 is-bold is-spaced">We value Free Time.</h2>
+          <p class="subtitle is-left text-l2">
+            Having some free time with our families and our friends is one of
+            our core values. Free time creates more efficiency at work.
+          </p>
+        </div>
+        <div class="column is-5">
+          <img
+            class="careers-image"
+            src="img/illustrations/stories/20.svg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div x-show="activeTab === 'tab-4'" class="columns is-vcentered">
+        <div class="column is-5 is-offset-1 b-centered-tablet-p">
+          <h4 class="subtitle is-6 pb-2 text-primary">CLIMB THE LADDER</h4>
+          <h2 class="title is-3 is-bold is-spaced">We have Career Plans.</h2>
+          <p class="subtitle is-left text-l2">
+            Working with us is a very exciting journey. After short time, you'll
+            be regularly given new responsabilities.
+          </p>
+        </div>
+        <div class="column is-5">
+          <img
+            class="careers-image"
+            src="img/illustrations/stories/21.svg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="careers-switcher">
+        <div class="careers-switcher-inner">
+          <a
+            x-on:click.prevent="switchTabs($event)"
+            data-tab="tab-1"
+            x-bind:class="{
+            'is-active': activeTab === 'tab-1',
+          }"
+          >
+            <span>1.</span>
+            <span>Creators</span>
+          </a>
+          <a
+            x-on:click.prevent="switchTabs($event)"
+            data-tab="tab-2"
+            x-bind:class="{
+            'is-active': activeTab === 'tab-2',
+          }"
+          >
+            <span>2.</span>
+            <span>Collaboration</span>
+          </a>
+          <a
+            x-on:click.prevent="switchTabs($event)"
+            data-tab="tab-3"
+            x-bind:class="{
+            'is-active': activeTab === 'tab-3',
+          }"
+          >
+            <span>3.</span>
+            <span>Free Time</span>
+          </a>
+          <a
+            x-on:click.prevent="switchTabs($event)"
+            data-tab="tab-4"
+            x-bind:class="{
+            'is-active': activeTab === 'tab-4',
+          }"
+          >
+            <span>4.</span>
+            <span>Career Plans</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="boxed-video-lg py-6">
+      <div class="video-player-container is-16by9">
+        <video
+          id="hero-player"
+          class="video-player"
+          playsinline
+          controls
+          data-poster="https://dummyimage.com/1200x675/ededed/000000"
+          data-demo-poster="img/photo/content/video/poster-2e.jpg"
+        >
+          <source src="img/video/meeting.mp4" type="video/mp4" />
+          <source src="img/video/meeting.webm" type="video/webm" />
+        </video>
+      </div>
+
+      <div class="pt-6">
+        <div class="boxed-text-lg">
+          <h4 class="subtitle is-6 pb-2 text-primary">WORKING WITH US</h4>
+          <h2 class="title is-5 has-space">A professional experience</h2>
+          <p class="rem-125">
+            Starting to work with us will immediately throw you in a formidable
+            journey.
+          </p>
+
+          <div
+            class="
+              columns
+              is-multiline
+              b-columns-third-tablet-p
+              has-text-centered
+              pt-6
+            "
+          >
+            <!--Feature-->
+            <div class="column is-4">
+              <div class="svg-icon mb-4 is-centered">
+                <img class="mb-2" src="img/icons/custom/money.svg" alt="" />
+              </div>
+              <h4 class="title is-6 has-space">Clean wages</h4>
+              <p class="stressed-1 is-sm mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+            <!--Feature-->
+            <div class="column is-4">
+              <div class="svg-icon mb-4 is-centered">
+                <img class="mb-2" src="img/icons/custom/bars.svg" alt="" />
+              </div>
+              <h4 class="title is-6 has-space">Monthly bonus</h4>
+              <p class="stressed-1 is-sm mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+            <!--Feature-->
+            <div class="column is-4">
+              <div class="svg-icon mb-4 is-centered">
+                <img class="mb-2" src="img/icons/custom/training.svg" alt="" />
+              </div>
+              <h4 class="title is-6 has-space">Training</h4>
+              <p class="stressed-1 is-sm mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+            <!--Feature-->
+            <div class="column is-4">
+              <div class="svg-icon mb-4 is-centered">
+                <img
+                  class="mb-2"
+                  src="img/icons/custom/certificate.svg"
+                  alt=""
+                />
+              </div>
+              <h4 class="title is-6 has-space">Certification</h4>
+              <p class="stressed-1 is-sm mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+            <!--Feature-->
+            <div class="column is-4">
+              <div class="svg-icon mb-4 is-centered">
+                <img
+                  class="mb-2"
+                  src="img/icons/custom/calendar-3.svg"
+                  alt=""
+                />
+              </div>
+              <h4 class="title is-6 has-space">Time off</h4>
+              <p class="stressed-1 is-sm mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+            <!--Feature-->
+            <div class="column is-4">
+              <div class="svg-icon mb-4 is-centered">
+                <img class="mb-2" src="img/icons/custom/contract.svg" alt="" />
+              </div>
+              <h4 class="title is-6 has-space">Negociation</h4>
+              <p class="stressed-1 is-sm mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-6">
+      <div class="image-grid-wrap">
+        <div class="image-grid">
+          <div class="image-row">
+            <div
+              class="f-1 has-background-image"
+              data-background="https://dummyimage.com/800x600"
+              data-demo-background="img/photo/content/masonry/1.jpeg"
+            ></div>
+            <div
+              class="f-2 has-background-image"
+              data-background="https://dummyimage.com/800x600"
+              data-demo-background="img/photo/content/masonry/2.jpeg"
+            ></div>
+            <div
+              class="f-1 has-background-image"
+              data-background="https://dummyimage.com/800x600"
+              data-demo-background="img/photo/content/masonry/3.jpeg"
+            ></div>
+            <div
+              class="f-3 has-background-image"
+              data-background="https://dummyimage.com/800x600"
+              data-demo-background="img/photo/content/masonry/4.jpeg"
+            ></div>
+            <div
+              class="f-3 has-background-image"
+              data-background="https://dummyimage.com/800x600"
+              data-demo-background="img/photo/content/masonry/5.jpeg"
+            ></div>
+            <div
+              class="f-3 has-background-image"
+              data-background="https://dummyimage.com/800x600"
+              data-demo-background="img/photo/content/masonry/6.jpeg"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns b-columns-half-tablet-p">
+      <div class="column is-5 is-offset-1">
+        <div class="">
+          <h4 class="title is-5 has-space">Come visit us</h4>
+          <p class="stressed-1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maximus
+            dolor, inquit, brevis est. Comprehensum, quod cognitum non habet? Si
+            longus, levis dictata sunt. Non risu potius quam oratione eiciendum?
+            Istic sum, inquit. Ita prorsus, inquam;
+          </p>
+        </div>
+      </div>
+      <div class="column is-5">
+        <div class="">
+          <h4 class="title is-5 has-space">Internships</h4>
+          <p class="stressed-1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maximus
+            dolor, inquit, brevis est. Comprehensum, quod cognitum non habet? Si
+            longus, levis dictata sunt. Non risu potius quam oratione eiciendum?
+            Istic sum, inquit. Ita prorsus, inquam;
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="py-6">
+      <div class="career-jobs-wrapper" x-data="initJobTabs()">
+        <header class="career-jobs-header">
+          <div class="nav">
+            <a
+              x-on:click.prevent="switchTabs($event)"
+              data-tab="all"
+              x-bind:class="{'is-current': activeTab === 'all'}"
+              >All Jobs</a
+            >
+            <a
+              x-on:click.prevent="switchTabs($event)"
+              data-tab="full"
+              x-bind:class="{'is-current': activeTab === 'full'}"
+              >Full-time</a
+            >
+            <a
+              x-on:click.prevent="switchTabs($event)"
+              data-tab="part"
+              x-bind:class="{'is-current': activeTab === 'part'}"
+              >Part-time</a
+            >
+          </div>
+        </header>
+
+        <ul class="listing-timeline">
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'full'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/illustrator.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/photoshop.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">UX Designer</span>
+                  <span class="job-info">
+                    <span>Junior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$30k</span>
+                  </span>
+                </div>
+                <span class="job-type is-full-time">Full-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'part'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/photoshop.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/illustrator.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">Product Designer</span>
+                  <span class="job-info">
+                    <span>Senior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$40k</span>
+                  </span>
+                </div>
+                <span class="job-type is-part-time">Part-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <li class="date">Today</li>
+
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'full'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/js.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/reactjs.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">Frontend Developer</span>
+                  <span class="job-info">
+                    <span>Senior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$60k</span>
+                  </span>
+                </div>
+                <span class="job-type is-full-time">Full-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'full'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/html5.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/js.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">UI Designer</span>
+                  <span class="job-info">
+                    <span>Senior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$50k</span>
+                  </span>
+                </div>
+                <span class="job-type is-full-time">Full-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'full'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/nodejs.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/reactjs.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">Fullstack Developer</span>
+                  <span class="job-info">
+                    <span>Senior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$80k</span>
+                  </span>
+                </div>
+                <span class="job-type is-full-time">Full-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'part'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/illustrator.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/js.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">UX Designer</span>
+                  <span class="job-info">
+                    <span>Junior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$25k</span>
+                  </span>
+                </div>
+                <span class="job-type is-part-time">Part-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <li class="date">Jan 28th</li>
+
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'full'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/vuejs.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/nodejs.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">Fullstack Developer</span>
+                  <span class="job-info">
+                    <span>Junior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$30k</span>
+                  </span>
+                </div>
+                <span class="job-type is-full-time">Full-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'full'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/illustrator.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/photoshop.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">UX Designer</span>
+                  <span class="job-info">
+                    <span>Junior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$30k</span>
+                  </span>
+                </div>
+                <span class="job-type is-full-time">Full-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <!--Job listing-->
+          <template x-if="activeTab === 'all' || activeTab === 'part'">
+            <a href="#">
+              <li class="listing">
+                <div class="image-wrapper">
+                  <img
+                    class="image-icon"
+                    src="img/icons/stacks/photoshop.svg"
+                    alt=""
+                  />
+                  <img
+                    class="image-badge"
+                    src="img/icons/stacks/illustrator.svg"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <span class="job-title">Product Designer</span>
+                  <span class="job-info">
+                    <span>Senior</span>
+                    <span>&bull;</span>
+                    <span>Remote</span>
+                    <span>&bull;</span>
+                    <span>$40k</span>
+                  </span>
+                </div>
+                <span class="job-type is-part-time">Part-Time</span>
+              </li>
+            </a>
+          </template>
+
+          <li class="date">Jan 27th</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section is-light-grey">
+  <div class="container">
+    <div class="py-6">
+      <h4 class="title is-3 is-thin has-space has-text-centered">
+        Join a memorable company
+      </h4>
+
+      <div class="subscription-field">
+        <div class="field">
+          <div class="control">
+            <input type="text" class="input" placeholder="Email address..." />
+            <button class="button is-primary">Contact Me</button>
+          </div>
+          <p class="py-1">Start by adding your professional address</p>
+        </div>
+      </div>
+
+      <div class="subscription-text">
+        <h4 class="title is-6 has-space">Want to learn more?</h4>
+        <p>Shoot us a message and we'll get back to you</p>
+        <a class="underlink mt-4">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-head">
+          <div class="head-text">
+            <h3>Have any questions?</h3>
+            <p>Our support team answers your questions</p>
+          </div>
+          <div class="head-action">
+            <div class="buttons">
+              <a
+                href="help-center.html"
+                class="button is-primary raised action-button is-raised-hover"
+                >Help Center</a
+              >
+              <a href="help-center.html" target="_blank" class="button chat-button"
+                >Chat with us</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="columns footer-body">
+          <!-- Column -->
+          <div class="column is-4">
+            <div class="p-t-10 p-b-10">
+              <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
+              <div class="footer-description p-t-10 p-b-10">
+                Listkit is built for developers and designers. Its modular approach
+                lets you create awesome webapps with incredible layouts and
+                elements.
+              </div>
+            </div>
+            <div>
+              <span class="moto"
+                >Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
+                Ninja.</span
+              >
+            </div>
+          </div>
+          <!-- Column -->
+          <div class="column is-7 is-offset-1">
+            <div class="columns is-flex-tablet-p">
+              <!-- Column -->
+              <div class="column">
+                <ul class="footer-column">
+                  <li class="column-header">Services</li>
+    
+                  <li class="column-item"><a href="events.html">Events</a></li>
+                  <li class="column-item"><a href="flats.html">Flats</a></li>
+                  <li class="column-item"><a href="trips.html">Trips</a></li>
+                  <li class="column-item">
+                    <a href="corporate.html">Corporate</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- Column -->
+              <div class="column">
+                <ul class="footer-column">
+                  <li class="column-header">Links</li>
+                  <li class="column-item"><a href="signup.html">Register</a></li>
+                  <li class="column-item"><a href="login.html">Sign In</a></li>
+                  <li class="column-item"><a href="blog.html">News</a></li>
+                  <li class="column-item"><a href="careers.html">Careers</a></li>
+                </ul>
+              </div>
+              <!-- Column -->
+              <div class="column">
+                <ul class="footer-column">
+                  <li class="column-header">Help</li>
+                  <li class="column-item"><a href="host.html">Host an event</a></li>
+                  <li class="column-item"><a href="how.html">How it works</a></li>
+                  <li class="column-item"><a href="support.html">Support</a></li>
+                  <li class="column-item">
+                    <a href="help-center.html">Help Center</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- Column -->
+              <div class="column">
+                <ul class="footer-column">
+                  <li class="column-header">Legal</li>
+    
+                  <li class="column-item"><a href="#">Terms of Service</a></li>
+                  <li class="column-item"><a href="#">Privacy policy</a></li>
+                  <li class="column-item"><a href="contact.html">Contact</a></li>
+                  <li class="column-item">
+                    <a class="modal-trigger" data-modal="languages-modal"
+                      >Language: EN</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <p>
+            &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
+            Rights Reserved.
+          </p>
+          <div>
+            <div class="social-links">
+              <a href="#"><i data-feather="facebook"></i></a>
+              <a href="#"><i data-feather="twitter"></i></a>
+              <a href="#"><i data-feather="linkedin"></i></a>
+              <a href="#"><i data-feather="instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="progress-wrap"
+      x-data="initBackToTop()"
+      x-init="setup()"
+      x-on:scroll.window="scroll()"
+      x-bind:class="{
+        'active-progress': scrolled,
+        '': !scrolled,
+        }"
+      x-on:click="scrollTop()"
+    >
+      <svg
+        class="progress-circle svg-content"
+        width="100%"
+        height="100%"
+        viewBox="-1 -1 102 102"
+      >
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+
+    <div id="languages-modal" class="modal">
+      <div class="modal-background modal-dismiss"></div>
+      <div class="modal-content">
+        <!--Modal card-->
+        <div class="card">
+          <header class="card-header">
+            <div class="card-header-title">
+              <span>Select a language</span>
+            </div>
+            <button class="modal-dismiss">
+              <span class="icon">
+                <i data-feather="x"></i>
+              </span>
+            </button>
+          </header>
+          <div class="card-content">
+            <div class="check-cards-group">
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" checked />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/united-states-of-america.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>English [US]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/england.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>English [UK]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/france.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>French [FR]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/canada.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>French [CA]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/germany.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>German</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/spain.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Spanish</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/portugal.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Portuguese</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/brazil.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Portuguese [BR]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/china.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Chinese</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/thailand.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Thai</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="./js/bundle.js"></script>
+  </body>
+</html>

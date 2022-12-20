@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ListKit</title>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MHNTCVZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHNTCVZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="pageloader" class="pageloader is-left-to-right"></div>
+    <div id="infraloader" class="infraloader is-active"></div>
+
+    <main>
+<!--Main Navbar-->
+<div
+  class="main-navigation-light is-default"
+  x-data="initNavbarLight()"
+  x-on:scroll.window="scroll()"
+  x-on:mouseleave="megamenuOpened = false"
+  x-bind:class="{
+        'is-scrolled': scrolled,
+        '': !scrolled,
+        'is-solid': megamenuOpened,
+        '': !megamenuOpened,
+    }"
+>
+  <div class="main-navigation--menu">
+    <div class="container">
+      <div class="main-navigation--menu-inner">
+        <div class="left">
+          <a href="/" class="brand">
+            <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
+            <img class="dark-logo" src="img/logo/logo.svg" alt="" />
+          </a>
+        </div>
+
+        <div class="center">
+          <div
+            class="navigation-link has-caret"
+            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-1'"
+          >
+            <a class="is-flex is-align-items-center">
+              <span>Events</span>
+              <i data-feather="chevron-down"></i>
+            </a>
+          </div>
+          <div
+            class="navigation-link has-caret"
+            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-2'"
+          >
+            <a class="is-flex is-align-items-center">
+              <span>Trips</span>
+              <i data-feather="chevron-down"></i>
+            </a>
+          </div>
+          <div
+            class="navigation-link has-caret"
+            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-3'"
+          >
+            <a class="is-flex is-align-items-center">
+              <span>Flats</span>
+              <i data-feather="chevron-down"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="navigation-link is-host">
+            <a href="host.html">Host Event</a>
+          </div>
+          <button
+            class="navigation-link is-icon mx-4 modal-trigger"
+            data-modal="languages-modal"
+          >
+            <i data-feather="globe"></i>
+          </button>
+          <div class="account-drop">
+            <button
+              x-on:click="openDrop('account-drop')"
+              x-on:click.away="closeDrop('account-drop')"
+            >
+              <span class="image is-32x32">
+                <img
+                  x-show="$store.app.isLoggedIn === false"
+                  class="is-rounded"
+                  src="https://dummyimage.com/150x150"
+                  data-demo-src="img/photo/avatar/placeholder.png"
+                  alt=""
+                />
+                <img
+                  x-show="$store.app.isLoggedIn === true"
+                  class="is-rounded"
+                  src="https://dummyimage.com/150x150"
+                  data-demo-src="img/photo/avatar/19.jpg"
+                  alt=""
+                />
+              </span>
+            </button>
+            <div x-show.transition="accountDropOpened" class="drop-menu">
+              <div class="drop-menu-inner">
+                <a
+                  href="login.html"
+                  x-show="$store.app.isLoggedIn === false"
+                  class="drop-menu-item is-heavy"
+                  >Sign In</a
+                >
+                <a
+                  href="signup.html"
+                  x-show="$store.app.isLoggedIn === false"
+                  class="drop-menu-item"
+                  >Register</a
+                >
+                <a
+                  href="account-main.html"
+                  x-show="$store.app.isLoggedIn === true"
+                  class="drop-menu-item"
+                  >Account</a
+                >
+                <a
+                  href="account-main.html"
+                  x-show="$store.app.isLoggedIn === true"
+                  class="drop-menu-item"
+                  >Settings</a
+                >
+                <a
+                  href="account-schedule.html"
+                  x-show="$store.app.isLoggedIn === true"
+                  class="drop-menu-item"
+                  >Schedule</a
+                >
+                <hr />
+                <a href="host.html" class="drop-menu-item">Host Event</a>
+                <a href="events.html" class="drop-menu-item">Explore Events</a>
+                <a href="how.html" class="drop-menu-item">Help</a>
+                <a
+                  x-show="$store.app.isLoggedIn === true"
+                  class="drop-menu-item"
+                  x-on:click="logout()"
+                  >Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="megamenu"
+    x-bind:class="{
+      'is-active': megamenuOpened,
+      '': !megamenuOpened,
+    }"
+  >
+    <!--Megamenu 1-->
+    <div x-show="openedMegamenu === 'megamenu-1'" class="megamenu-inner">
+      <button class="close-button" x-on:click="megamenuOpened = !megamenuOpened">
+        <i data-feather="arrow-left"></i>
+      </button>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="megamenu-block">
+              <div class="media">
+                <div class="media-left text-primary">
+                  <span class="fas fa-2x fa-cocktail"></span>
+                </div>
+                <div class="media-content">
+                  <h3 class="text-rainbow">Social Events</h3>
+                  <p>
+                    Explore a wide variety of events and services provided by
+                    members of our huge community.
+                  </p>
+                  <a href="events.html" class="arrow-link">
+                    <span>Explore scheduled events</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block has-margin">
+              <h4 class="text-rainbow">Trending now</h4>
+              <ul>
+                <li>
+                  <a href="events.html" class="arrow-link">
+                    <span>Reading groups</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="events.html" class="arrow-link">
+                    <span>Shopping meetups</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="events.html" class="arrow-link">
+                    <span>Gaming parties</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block is-left-bordered">
+              <div class="media">
+                <div class="media-content">
+                  <h3 class="text-rainbow">Schedule an event</h3>
+                  <p>
+                    Learn how you can start hosting events and offering services
+                    on our platform.
+                  </p>
+                  <a href="host.html" class="arrow-link">
+                    <span>Become a Host</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!--Megamenu 2-->
+    <div x-show="openedMegamenu === 'megamenu-2'" class="megamenu-inner">
+      <button class="close-button" x-on:click="megamenuOpened = !megamenuOpened">
+        <i data-feather="arrow-left"></i>
+      </button>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="megamenu-block">
+              <div class="media">
+                <div class="media-left text-primary">
+                  <span class="fas fa-2x fa-suitcase-rolling"></span>
+                </div>
+                <div class="media-content">
+                  <h3 class="text-rainbow">Planned Trips</h3>
+                  <p>
+                    Explore a wide variety of road and luxury trips hosted by
+                    members of our community.
+                  </p>
+                  <a href="trips.html" class="arrow-link">
+                    <span>Explore scheduled trips</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block has-margin">
+              <h4 class="text-rainbow">Categories</h4>
+              <div class="tags">
+                <a href="home-2.html" class="tag is-rounded">Trekking</a>
+                <a href="home-2.html" class="tag is-rounded">Adventure</a>
+                <a href="home-2.html" class="tag is-rounded">Discovery</a>
+                <a href="home-2.html" class="tag is-rounded">Climbing</a>
+                <a href="home-2.html" class="tag is-rounded">Bicycle</a>
+                <a href="home-2.html" class="tag is-rounded">Scuba diving</a>
+                <a href="home-2.html" class="tag is-rounded">Safari</a>
+                <a href="home-2.html" class="tag is-rounded">Rafting</a>
+                <a href="home-2.html" class="tag is-rounded">Survival</a>
+                <a href="home-2.html" class="tag is-rounded">Speleology</a>
+                <a href="home-2.html" class="tag is-rounded">Hunting</a>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block is-left-bordered">
+              <div class="media">
+                <div class="media-content">
+                  <h3 class="text-rainbow">Try our luxury trips</h3>
+                  <p>
+                    Not the adventurer type? Discover dozens of luxury trips in a
+                    wide selection of locations.
+                  </p>
+                  <a href="trips.html" class="arrow-link">
+                    <span>Explore luxury trips</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!--Megamenu 3-->
+    <div x-show="openedMegamenu === 'megamenu-3'" class="megamenu-inner">
+      <button class="close-button" x-on:click="megamenuOpened = !megamenuOpened">
+        <i data-feather="arrow-left"></i>
+      </button>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="megamenu-block">
+              <div class="media">
+                <div class="media-left text-primary">
+                  <span class="fas fa-2x fa-igloo"></span>
+                </div>
+                <div class="media-content">
+                  <h3 class="text-rainbow">Flats & Homes</h3>
+                  <p>
+                    Explore a wide variety of events and services provided by
+                    members of our huge community.
+                  </p>
+                  <a href="flats.html" class="arrow-link">
+                    <span>Find a flat nearby</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block has-margin">
+              <h4 class="text-rainbow">Recently Added</h4>
+              <div class="block-list">
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/9.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/10.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/11.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/12.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/13.jpg" alt=""
+                  />
+                </div>
+                <div class="block-list-item">
+                  <img
+                    class="is-rounded-md"
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/photo/content/thumbs/square/14.jpg" alt=""
+                  />
+                </div>
+              </div>
+              <a href="#" class="arrow-link mt-4">
+                <span>View all</span>
+                <i data-feather="arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="megamenu-block is-left-bordered">
+              <div class="media">
+                <div class="media-content">
+                  <h3 class="text-rainbow">Submit your flat</h3>
+                  <p>
+                    Looking to generate revenue with your unused flat? Learn more
+                    about our terms.
+                  </p>
+                  <a href="#" class="arrow-link">
+                    <span>Learn more</span>
+                    <i data-feather="arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section app-section">
+  <div class="container">
+    <nav class="breadcrumb account-breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="account-main.html">Account</a></li>
+        <li class="is-active">
+          <a href="account-personal.html" aria-current="page">Personal Info</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="account-header">
+      <img
+        class="header-avatar"
+        src="https://dummyimage.com/150x150"
+        data-demo-src="img/photo/avatar/19.jpg"
+        alt=""
+      />
+      <div class="header-meta">
+        <h2 class="title is-3 is-bold">Personal Info</h2>
+        <h4 class="subtitle is-5 stressed-1">
+          Edit and manage your personal details
+        </h4>
+      </div>
+    </div>
+
+    <div class="account-layout py-6">
+      <div class="columns b-flex-tablet-p">
+        <div class="column is-7">
+          <div>
+            <div class="mb-4">
+              <h2 class="title is-5 is-bold">General</h2>
+              <h4 class="subtitle is-6">
+                Your general information and details
+              </h4>
+            </div>
+
+            <!--Setting block-->
+            <article class="media">
+              <div class="media-content">
+                <span class="is-block">Full Name</span>
+                <span class="is-block">Danny Michalovski</span>
+              </div>
+              <div class="media-right">
+                <a class="default-link">Edit</a>
+              </div>
+            </article>
+            <!--Setting block-->
+            <article class="media">
+              <div class="media-content">
+                <span class="is-block">Gender</span>
+                <span class="is-block">Male</span>
+              </div>
+              <div class="media-right">
+                <a class="default-link">Edit</a>
+              </div>
+            </article>
+            <!--Setting block-->
+            <article class="media">
+              <div class="media-content">
+                <span class="is-block">Email Address</span>
+                <span class="is-block">dannymichalov@gmail.com</span>
+              </div>
+              <div class="media-right">
+                <a class="default-link">Edit</a>
+              </div>
+            </article>
+            <!--Setting block-->
+            <article class="media">
+              <div class="media-content">
+                <span class="is-block">Birthdate</span>
+                <span class="is-block">October 12, 1979</span>
+              </div>
+              <div class="media-right">
+                <a class="default-link">Edit</a>
+              </div>
+            </article>
+          </div>
+
+          <div>
+            <div class="mt-6 mb-4">
+              <h2 class="title is-5 is-bold">Additional Info</h2>
+              <h4 class="subtitle is-6">
+                some additional details that we need
+              </h4>
+            </div>
+
+            <!--Setting block-->
+            <article class="media">
+              <div class="media-content">
+                <span class="is-block">Phone Number</span>
+                <span class="is-block">(+1) 555 551 54984</span>
+              </div>
+              <div class="media-right">
+                <a class="default-link">Edit</a>
+              </div>
+            </article>
+            <!--Setting block-->
+            <article class="media">
+              <div class="media-content">
+                <span class="is-block">ID Document</span>
+                <span class="is-block">Successfully uploaded</span>
+              </div>
+              <div class="media-right">
+                <a class="default-link">Edit</a>
+              </div>
+            </article>
+            <!--Setting block-->
+            <article class="media">
+              <div class="media-content">
+                <span class="is-block">Location</span>
+                <span class="is-block">San Francisco, CA</span>
+              </div>
+              <div class="media-right">
+                <a class="default-link">Edit</a>
+              </div>
+            </article>
+            <!--Setting block-->
+            <article class="media">
+              <div class="media-content">
+                <span class="is-block">Emergency</span>
+                <span class="is-block">Your emergency infos</span>
+              </div>
+              <div class="media-right">
+                <a class="default-link">Edit</a>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="column is-4 is-offset-1">
+          <!--Categories-->
+          <div class="account-categories">
+            <!--Category-->
+            <a href="account-personal.html" class="card mb-5">
+              <div class="card-content">
+                <div class="svg-icon">
+                  <img class="mb-2" src="img/icons/custom/shield.svg" alt="" />
+                </div>
+                <h3 class="title is-6 has-space">
+                  <span class="icon-text">
+                    <span>Account & Security</span>
+                    <span class="icon">
+                      <i data-feather="chevron-right"></i>
+                    </span>
+                  </span>
+                </h3>
+                <p class="stressed-1 is-md">
+                  Update your password and secure your account. You can also
+                  enable two-factor authentication.
+                </p>
+              </div>
+            </a>
+            <!--Category-->
+            <a href="account-personal.html" class="card">
+              <div class="card-content">
+                <div class="svg-icon">
+                  <img
+                    class="mb-2"
+                    src="img/icons/custom/credit-card.svg"
+                    alt=""
+                  />
+                </div>
+                <h3 class="title is-6 has-space">
+                  <span class="icon-text">
+                    <span>Payments</span>
+                    <span class="icon">
+                      <i data-feather="chevron-right"></i>
+                    </span>
+                  </span>
+                </h3>
+                <p class="stressed-1 is-md">
+                  View your payments and your transactions. Also view coupon
+                  codes, gift cards and tax reports.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-head">
+          <div class="head-text">
+            <h3>Have any questions?</h3>
+            <p>Our support team answers your questions</p>
+          </div>
+          <div class="head-action">
+            <div class="buttons">
+              <a
+                href="help-center.html"
+                class="button is-primary raised action-button is-raised-hover"
+                >Help Center</a
+              >
+              <a href="help-center.html" target="_blank" class="button chat-button"
+                >Chat with us</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="columns footer-body">
+          <!-- Column -->
+          <div class="column is-4">
+            <div class="p-t-10 p-b-10">
+              <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
+              <div class="footer-description p-t-10 p-b-10">
+                Listkit is built for developers and designers. Its modular approach
+                lets you create awesome webapps with incredible layouts and
+                elements.
+              </div>
+            </div>
+            <div>
+              <span class="moto"
+                >Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
+                Ninja.</span
+              >
+            </div>
+          </div>
+          <!-- Column -->
+          <div class="column is-7 is-offset-1">
+            <div class="columns is-flex-tablet-p">
+              <!-- Column -->
+              <div class="column">
+                <ul class="footer-column">
+                  <li class="column-header">Services</li>
+    
+                  <li class="column-item"><a href="events.html">Events</a></li>
+                  <li class="column-item"><a href="flats.html">Flats</a></li>
+                  <li class="column-item"><a href="trips.html">Trips</a></li>
+                  <li class="column-item">
+                    <a href="corporate.html">Corporate</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- Column -->
+              <div class="column">
+                <ul class="footer-column">
+                  <li class="column-header">Links</li>
+                  <li class="column-item"><a href="signup.html">Register</a></li>
+                  <li class="column-item"><a href="login.html">Sign In</a></li>
+                  <li class="column-item"><a href="blog.html">News</a></li>
+                  <li class="column-item"><a href="careers.html">Careers</a></li>
+                </ul>
+              </div>
+              <!-- Column -->
+              <div class="column">
+                <ul class="footer-column">
+                  <li class="column-header">Help</li>
+                  <li class="column-item"><a href="host.html">Host an event</a></li>
+                  <li class="column-item"><a href="how.html">How it works</a></li>
+                  <li class="column-item"><a href="support.html">Support</a></li>
+                  <li class="column-item">
+                    <a href="help-center.html">Help Center</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- Column -->
+              <div class="column">
+                <ul class="footer-column">
+                  <li class="column-header">Legal</li>
+    
+                  <li class="column-item"><a href="#">Terms of Service</a></li>
+                  <li class="column-item"><a href="#">Privacy policy</a></li>
+                  <li class="column-item"><a href="contact.html">Contact</a></li>
+                  <li class="column-item">
+                    <a class="modal-trigger" data-modal="languages-modal"
+                      >Language: EN</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <p>
+            &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
+            Rights Reserved.
+          </p>
+          <div>
+            <div class="social-links">
+              <a href="#"><i data-feather="facebook"></i></a>
+              <a href="#"><i data-feather="twitter"></i></a>
+              <a href="#"><i data-feather="linkedin"></i></a>
+              <a href="#"><i data-feather="instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="progress-wrap"
+      x-data="initBackToTop()"
+      x-init="setup()"
+      x-on:scroll.window="scroll()"
+      x-bind:class="{
+        'active-progress': scrolled,
+        '': !scrolled,
+        }"
+      x-on:click="scrollTop()"
+    >
+      <svg
+        class="progress-circle svg-content"
+        width="100%"
+        height="100%"
+        viewBox="-1 -1 102 102"
+      >
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+
+    <div id="languages-modal" class="modal">
+      <div class="modal-background modal-dismiss"></div>
+      <div class="modal-content">
+        <!--Modal card-->
+        <div class="card">
+          <header class="card-header">
+            <div class="card-header-title">
+              <span>Select a language</span>
+            </div>
+            <button class="modal-dismiss">
+              <span class="icon">
+                <i data-feather="x"></i>
+              </span>
+            </button>
+          </header>
+          <div class="card-content">
+            <div class="check-cards-group">
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" checked />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/united-states-of-america.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>English [US]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/england.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>English [UK]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/france.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>French [FR]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/canada.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>French [CA]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/germany.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>German</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/spain.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Spanish</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/portugal.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Portuguese</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/brazil.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Portuguese [BR]</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/china.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Chinese</span>
+                  </div>
+                </div>
+              </div>
+              <!--Card-->
+              <div class="check-card">
+                <input type="radio" name="language_selection" />
+                <div class="check-card-inner">
+                  <img
+                    src="https://dummyimage.com/150x150"
+                    data-demo-src="img/icons/flags/thailand.svg"
+                    alt=""
+                  />
+                  <div class="meta">
+                    <span>Thai</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="./js/bundle.js"></script>
+  </body>
+</html>
