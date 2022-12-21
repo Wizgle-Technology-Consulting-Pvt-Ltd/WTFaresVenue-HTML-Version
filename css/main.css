@@ -12255,8 +12255,14 @@ a.has-text-danger-dark:focus {
 }
 
 .mb-2 {
-    margin-bottom: .5rem !important
+    margin-bottom: .5rem !important;
+   
 }
+.mb-3 {
+    margin-bottom: .5rem !important;
+    margin-right: -270px;
+}
+
 
 .ml-2 {
     margin-left: .5rem !important
@@ -12697,7 +12703,10 @@ a.has-text-danger-dark:focus {
 }
 
 .pt-6 {
-    padding-top: 3rem !important
+    padding-top: 3rem !important;
+    display: flex;
+    text-align: center;
+    justify-content: center;
 }
 
 .pr-6 {
