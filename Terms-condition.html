@@ -38,141 +38,283 @@
     <div id="infraloader" class="infraloader is-active"></div>
 
     <main>
-<!--Main Navbar-->
-<!-- <div
-  class="main-navigation-light is-default"
-  x-data="initNavbarLight()"
-  x-on:scroll.window="scroll()"
-  x-on:mouseleave="megamenuOpened = false"
-  x-bind:class="{
-        'is-scrolled': scrolled,
-        '': !scrolled,
-        'is-solid': megamenuOpened,
-        '': !megamenuOpened,
-    }"
-> -->
-  <!-- <div class="main-navigation--menu">
-    <div class="container">
-      <div class="main-navigation--menu-inner">
-        <div class="left">
-          <a href="/" class="brand">
-            <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
-            <img class="dark-logo" src="img/logo/logo.svg" alt="" />
-          </a>
-        </div>
+<!-- Header Start -->
+<div class="main-navigation is-scrolled" x-data="initNavbar()" x-on:click.away="foldSearch()" x-bind:class="{
+  'is-expanded': searchExpanded,
+  '': !searchExpanded
+}">
+<div class="main-navigation--menu">
+  <div class="container">
+    <div class="main-navigation--menu-inner">
+      <div class="left">
+        <a href="/" class="brand">
+          <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
+          <img class="dark-logo" src="img/logo/logo.svg" alt="" />
+        </a>
+      </div>
 
-        <div class="center">
-          <div
-            class="navigation-link has-caret"
-            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-1'"
-          >
-            <a class="is-flex is-align-items-center">
-              <span>Events</span>
-              <i data-feather="chevron-down"></i>
-            </a>
-          </div>
-          <div
-            class="navigation-link has-caret"
-            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-2'"
-          >
-            <a class="is-flex is-align-items-center">
-              <span>Trips</span>
-              <i data-feather="chevron-down"></i>
-            </a>
-          </div>
-          <div
-            class="navigation-link has-caret"
-            x-on:mouseover="megamenuOpened = true, openedMegamenu = 'megamenu-3'"
-          >
-            <a class="is-flex is-align-items-center">
-              <span>Flats</span>
-              <i data-feather="chevron-down"></i>
-            </a>
-          </div>
+      <!-- <div class="center">
+        <div class="navigation-link">
+          <a>Events</a>
         </div>
-
-        <div class="right">
-          <div class="navigation-link is-host">
-            <a href="host.html">Host Event</a>
-          </div>
-          <button
-            class="navigation-link is-icon mx-4 modal-trigger"
-            data-modal="languages-modal"
-          >
-            <i data-feather="globe"></i>
+        <div class="navigation-link">
+          <a>Trips</a>
+        </div>
+        <div class="navigation-link">
+          <a>Flats</a>
+        </div>
+        <div class="search-fold" x-on:click="expandSearch()">
+          <span>Search events near you</span>
+          <button class="mini-search-button">
+            <i data-feather="search"></i>
           </button>
-          <div class="account-drop">
-            <button
-              x-on:click="openDrop('account-drop')"
-              x-on:click.away="closeDrop('account-drop')"
-            >
-              <span class="image is-32x32">
-                <img
-                  x-show="$store.app.isLoggedIn === false"
-                  class="is-rounded"
-                  src="https://dummyimage.com/150x150"
-                  data-demo-src="img/photo/avatar/placeholder.png"
-                  alt=""
-                />
-                <img
-                  x-show="$store.app.isLoggedIn === true"
-                  class="is-rounded"
-                  src="https://dummyimage.com/150x150"
-                  data-demo-src="img/photo/avatar/19.jpg"
-                  alt=""
-                />
-              </span>
-            </button>
-            <div x-show.transition="accountDropOpened" class="drop-menu">
-              <div class="drop-menu-inner">
-                <a
-                  href="login.html"
-                  x-show="$store.app.isLoggedIn === false"
-                  class="drop-menu-item is-heavy"
-                  >Sign In</a
-                >
-                <a
-                  href="signup.html"
-                  x-show="$store.app.isLoggedIn === false"
-                  class="drop-menu-item"
-                  >Register</a
-                >
-                <a
-                  href="account-main.html"
-                  x-show="$store.app.isLoggedIn === true"
-                  class="drop-menu-item"
-                  >Account</a
-                >
-                <a
-                  href="account-main.html"
-                  x-show="$store.app.isLoggedIn === true"
-                  class="drop-menu-item"
-                  >Settings</a
-                >
-                <a
-                  href="account-schedule.html"
-                  x-show="$store.app.isLoggedIn === true"
-                  class="drop-menu-item"
-                  >Schedule</a
-                >
-                <hr />
-                <a href="host.html" class="drop-menu-item">Host Event</a>
-                <a href="events.html" class="drop-menu-item">Explore Events</a>
-                <a href="how.html" class="drop-menu-item">Help</a>
-                <a
-                  x-show="$store.app.isLoggedIn === true"
-                  class="drop-menu-item"
-                  x-on:click="logout()"
-                  >Logout</a
-                >
-              </div>
+        </div>
+      </div> -->
+
+      <div class="right">
+        <div class="navigation-link is-host">
+          <a href="host.html">Host Event</a>
+        </div>
+        <button class="navigation-link is-icon mx-4 modal-trigger" data-modal="languages-modal">
+          <i data-feather="globe"></i>
+        </button>
+        <div class="account-drop">
+          <button x-on:click="openDrop('account-drop')" x-on:click.away="closeDrop('account-drop')">
+            <span class="image is-32x32">
+              <img x-show="$store.app.isLoggedIn === false" class="is-rounded"
+                src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png" data-demo-src="img/photo/avatar/placeholder.png" alt="" />
+              <img x-show="$store.app.isLoggedIn === true" class="is-rounded"
+                src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                data-demo-src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png" alt="" />
+            </span>
+          </button>
+          <div x-show.transition="accountDropOpened" class="drop-menu">
+            <div class="drop-menu-inner">
+              <a href="login.html" x-show="$store.app.isLoggedIn === false" class="drop-menu-item is-heavy">Sign
+                In</a>
+              <a href="signup.html" x-show="$store.app.isLoggedIn === false" class="drop-menu-item">Register</a>
+              <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                class="drop-menu-item">Account</a>
+              <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                class="drop-menu-item">Settings</a>
+              <a href="account-schedule.html" x-show="$store.app.isLoggedIn === true"
+                class="drop-menu-item">Schedule</a>
+              <hr />
+              <a href="host.html" class="drop-menu-item">Host Event</a>
+              <a href="events.html" class="drop-menu-item">Explore Events</a>
+              <a href="how.html" class="drop-menu-item">Help</a>
+              <a x-show="$store.app.isLoggedIn === false" class="drop-menu-item" x-on:click="logout()">Logout</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
+</div>
+<div class="main-navigation--search">
+  <form id="search-form">
+    <div class="search-bar" x-on:click.away="disableSearch()">
+      <div class="block-20" x-on:click="openDrop('start-date-drop'), $refs.startDateInput.focus()"
+        x-on:click.away="closeDrop('start-date-drop')" x-bind:class="{
+                  'is-active': startDateDropOpened,
+                  '': !startDateDropOpened
+              }">
+        <div class="field">
+          <label>Starting</label>
+          <div class="control">
+            <input x-ref="startDateInput" required="required" class="search-datepicker-start"
+              placeholder="Select a date" />
+            <button type="reset" class="clear-value">
+              <i data-feather="x"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="block-30" x-on:click="openDrop('type-drop'), $refs.typeInput.focus()"
+        x-on:click.away="closeDrop('type-drop')" x-bind:class="{
+                  'is-active': typeDropOpened,
+                  '': !typeDropOpened
+              }">
+        <div class="field has-search-button">
+          <label>Audience</label>
+          <div class="control">
+            <input x-ref="typeInput" required="required" placeholder="Pick a type" />
+            <button type="reset" class="clear-value">
+              <i data-feather="x"></i>
+            </button>
+          </div>
+        </div>
 
+        <div x-show.transition="typeDropOpened" class="type-dropdown">
+          <div class="type-dropdown-inner">
+            <div class="type-block">
+              <div class="meta">
+                <span>General audience</span>
+                <span>Suitable for everyone</span>
+              </div>
+              <div class="action">
+                <label class="form-switch is-primary">
+                  <input type="radio" name="search_type_radio" class="is-switch" checked />
+                  <i></i>
+                </label>
+              </div>
+            </div>
+            <div class="type-block">
+              <div class="meta">
+                <span>Family</span>
+                <span>Suitable for kids and families</span>
+              </div>
+              <div class="action">
+                <label class="form-switch is-primary">
+                  <input type="radio" name="search_type_radio" class="is-switch" />
+                  <i></i>
+                </label>
+              </div>
+            </div>
+            <div class="type-block">
+              <div class="meta">
+                <span>Adults only</span>
+                <span>Only for adults and grown ups</span>
+              </div>
+              <div class="action">
+                <label class="form-switch is-primary">
+                  <input type="radio" name="search_type_radio" class="is-switch" />
+                  <i></i>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="block-30" x-on:click.stop="openDrop('location-drop'), $refs.locationInput.focus()"
+        x-on:click.away="closeDrop('location-drop')" x-bind:class="{
+                'is-active': locationDropOpened,
+                '': !locationDropOpened
+            }">
+        <div class="field">
+          <label>Location</label>
+          <div class="control">
+            <input x-ref="locationInput" required="required" placeholder="Where are you?" />
+            <button type="reset" class="clear-value">
+              <i data-feather="x"></i>
+            </button>
+          </div>
+        </div>
+
+        <div x-show.transition="locationDropOpened" class="location-dropdown">
+          <div class="location-dropdown-inner">
+            <a class="near-link">
+              <div class="near-icon">
+                <i data-feather="map-pin"></i>
+              </div>
+              <span>Explore events near you</span>
+            </a>
+            <div class="near-tags">
+              <h4>Places near you</h4>
+              <div class="tags">
+                <span class="tag">Los Angeles</span>
+                <span class="tag">San Francisco</span>
+                <span class="tag">San Diego</span>
+                <span class="tag">Orange County</span>
+                <span class="tag">San Juan</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button style="margin-left: 40px ;" type="button" class="search-button" x-bind:class="{
+                      'is-expanded': searchActive,
+                      '': !searchActive
+                  }">
+          <i data-feather="search"></i>
+          <span> Search</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+
+
+<div class="progress-wrap" x-data="initBackToTop()" x-init="setup()" x-on:scroll.window="scroll()" x-bind:class="{
+  'active-progress': scrolled,
+  '': !scrolled,
+  }" x-on:click="scrollTop()">
+<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+</svg>
+</div>
+
+<div id="languages-modal" class="modal">
+<div class="modal-background modal-dismiss"></div>
+<div class="modal-content">
+<!--Modal card-->
+<div class="card">
+  <header class="card-header">
+    <div class="card-header-title">
+      <span>Select a language</span>
+    </div>
+    <button class="modal-dismiss">
+      <span class="icon">
+        <i data-feather="x"></i>
+      </span>
+    </button>
+  </header>
+  <div class="card-content">
+    <div class="check-cards-group">
+      <!--Card-->
+      <div class="check-card">
+        <input type="radio" name="language_selection" checked />
+        <div class="check-card-inner">
+          <img src="https://listkit.cssninja.io/img/icons/flags/united-states-of-america.svg"
+            data-demo-src="img/icons/flags/united-states-of-america.svg" alt="" />
+          <div class="meta">
+            <span>English [US]</span>
+          </div>
+        </div>
+      </div>
+      <!--Card-->
+      <div class="check-card">
+        <input type="radio" name="language_selection" />
+        <div class="check-card-inner">
+          <img src="https://listkit.cssninja.io/img/icons/flags/england.svg"
+            data-demo-src="img/icons/flags/england.svg" alt="" />
+          <div class="meta">
+            <span>English [UK]</span>
+          </div>
+        </div>
+      </div>
+      <!--Card-->
+      <div class="check-card">
+        <input type="radio" name="language_selection" />
+        <div class="check-card-inner">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+            data-demo-src="img/icons/flags/france.svg" alt="" />
+          <div class="meta">
+            <span>Hindi</span>
+          </div>
+        </div>
+      </div>
+      <!--Card-->
+      <div class="check-card">
+        <input type="radio" name="language_selection" />
+        <div class="check-card-inner">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+            data-demo-src="img/icons/flags/germany.svg" alt="" />
+          <div class="meta">
+            <span>Marathi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<!-- Header Start -->
   <div
     class="megamenu"
     x-bind:class="{
@@ -1101,117 +1243,127 @@
 
 </main>
 
-    <!-- <footer class="main-footer">
-      <div class="container">
-        <div class="footer-head">
-          <div class="head-text">
-            <h3>Have any questions?</h3>
-            <p>Our support team answers your questions</p>
-          </div>
-          <div class="head-action">
-            <div class="buttons">
-              <a
-                href="help-center.html"
-                class="button is-primary raised action-button is-raised-hover"
-                >Help Center</a
-              >
-              <a href="help-center.html" target="_blank" class="button chat-button"
-                >Chat with us</a
-              >
-            </div>
+
+ 
+
+
+
+
+
+
+<!-- footer start -->
+<footer class="main-footer">
+  <div class="container">
+    <div class="footer-head">
+      <div class="head-text">
+        <h3>Have any questions?</h3>
+        <p>Our support team answers your questions</p>
+      </div>
+      <div class="head-action">
+        <div class="buttons">
+          <a
+            href="help-center.html"
+            class="button is-primary raised action-button is-raised-hover"
+            >Help Center</a
+          >
+          <a href="help-center.html" target="_blank" class="button chat-button"
+            >Chat with us</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="columns footer-body">
+      <!-- Column -->
+      <div class="column is-4">
+        <div class="p-t-10 p-b-10">
+          <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
+          <div class="footer-description p-t-10 p-b-10">
+            Listkit is built for developers and designers. Its modular approach
+            lets you create awesome webapps with incredible layouts and
+            elements.
           </div>
         </div>
-        <div class="columns footer-body">
-        
-          <div class="column is-4">
-            <div class="p-t-10 p-b-10">
-              <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
-              <div class="footer-description p-t-10 p-b-10">
-                Listkit is built for developers and designers. Its modular approach
-                lets you create awesome webapps with incredible layouts and
-                elements.
-              </div>
-            </div>
-            <div>
-              <span class="moto"
-                >Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
-                Ninja.</span
-              >
-            </div>
-          </div>
-        
-          <div class="column is-7 is-offset-1">
-            <div class="columns is-flex-tablet-p">
-            
-              <div class="column">
-                <ul class="footer-column">
-                  <li class="column-header">Services</li>
-    
-                  <li class="column-item"><a href="events.html">Events</a></li>
-                  <li class="column-item"><a href="flats.html">Flats</a></li>
-                  <li class="column-item"><a href="trips.html">Trips</a></li>
-                  <li class="column-item">
-                    <a href="corporate.html">Corporate</a>
-                  </li>
-                </ul>
-              </div>
-        
-              <div class="column">
-                <ul class="footer-column">
-                  <li class="column-header">Links</li>
-                  <li class="column-item"><a href="signup.html">Register</a></li>
-                  <li class="column-item"><a href="login.html">Sign In</a></li>
-                  <li class="column-item"><a href="blog.html">News</a></li>
-                  <li class="column-item"><a href="careers.html">Careers</a></li>
-                </ul>
-              </div>
-        
-              <div class="column">
-                <ul class="footer-column">
-                  <li class="column-header">Help</li>
-                  <li class="column-item"><a href="host.html">Host an event</a></li>
-                  <li class="column-item"><a href="how.html">How it works</a></li>
-                  <li class="column-item"><a href="support.html">Support</a></li>
-                  <li class="column-item">
-                    <a href="help-center.html">Help Center</a>
-                  </li>
-                </ul>
-              </div>
-            
-              <div class="column">
-                <ul class="footer-column">
-                  <li class="column-header">Legal</li>
-    
-                  <li class="column-item"><a href="#">Terms of Service</a></li>
-                  <li class="column-item"><a href="#">Privacy policy</a></li>
-                  <li class="column-item"><a href="contact.html">Contact</a></li>
-                  <li class="column-item">
-                    <a class="modal-trigger" data-modal="languages-modal"
-                      >Language: EN</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        <div>
+          <span class="moto"
+            >Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
+            Ninja.</span
+          >
         </div>
-        <div class="footer-copyright">
-          <p>
-            &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
-            Rights Reserved.
-          </p>
-          <div>
-            <div class="social-links">
-              <a href="#"><i data-feather="facebook"></i></a>
-              <a href="#"><i data-feather="twitter"></i></a>
-              <a href="#"><i data-feather="linkedin"></i></a>
-              <a href="#"><i data-feather="instagram"></i></a>
-            </div>
+      </div>
+      <!-- Column -->
+      <div class="column is-7 is-offset-1">
+        <div class="columns is-flex-tablet-p">
+          <!-- Column -->
+          <div class="column">
+            <ul class="footer-column">
+              <li class="column-header">Services</li>
+
+              <li class="column-item"><a href="events.html">Events</a></li>
+              <li class="column-item"><a href="flats.html">Flats</a></li>
+              <li class="column-item"><a href="trips.html">Trips</a></li>
+              <li class="column-item">
+                <a href="corporate.html">Corporate</a>
+              </li>
+            </ul>
+          </div>
+          <!-- Column -->
+          <div class="column">
+            <ul class="footer-column">
+              <li class="column-header">Links</li>
+              <li class="column-item"><a href="signup.html">Register</a></li>
+              <li class="column-item"><a href="login.html">Sign In</a></li>
+              <li class="column-item"><a href="blog.html">News</a></li>
+              <li class="column-item"><a href="careers.html">Careers</a></li>
+            </ul>
+          </div>
+          <!-- Column -->
+          <div class="column">
+            <ul class="footer-column">
+              <li class="column-header">Help</li>
+              <li class="column-item"><a href="host.html">Host an event</a></li>
+              <li class="column-item"><a href="how.html">How it works</a></li>
+              <li class="column-item"><a href="support.html">Support</a></li>
+              <li class="column-item">
+                <a href="help-center.html">Help Center</a>
+              </li>
+            </ul>
+          </div>
+          <!-- Column -->
+          <div class="column">
+            <ul class="footer-column">
+              <li class="column-header">Legal</li>
+
+              <li class="column-item"><a href="#">Terms of Service</a></li>
+              <li class="column-item"><a href="#">Privacy policy</a></li>
+              <li class="column-item"><a href="contact.html">Contact</a></li>
+              <li class="column-item">
+                <a class="modal-trigger" data-modal="languages-modal"
+                  >Language: EN</a
+                >
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </footer> -->
-
+    </div>
+    <div class="footer-copyright">
+      <p>
+        &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
+        Rights Reserved.
+      </p>
+      <div>
+        <div class="social-links">
+          <a href="#"><i data-feather="facebook"></i></a>
+          <a href="#"><i data-feather="twitter"></i></a>
+          <a href="#"><i data-feather="linkedin"></i></a>
+          <a href="#"><i data-feather="instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- footer End -->
+     
     <div
       class="progress-wrap"
       x-data="initBackToTop()"
