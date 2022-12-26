@@ -41,344 +41,294 @@
         <!--Docked main Navbar-->
 
         <!-- Header Start -->
-  <main>
-    <!--Docked main Navbar-->
-    <div class="main-navigation is-scrolled" x-data="initNavbar()" x-on:click.away="foldSearch()" x-bind:class="{
+        <main>
+            <!--Docked main Navbar-->
+            <div class="main-navigation is-scrolled" x-data="initNavbar()" x-on:click.away="foldSearch()" x-bind:class="{
         'is-expanded': searchExpanded,
         '': !searchExpanded
     }">
-      <div class="main-navigation--menu">
-        <div class="container">
-          <div class="main-navigation--menu-inner">
-            <div class="left">
-              <a href="/" class="brand">
-                <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
-                <img class="dark-logo" src="img/logo/logo.svg" alt="" />
-              </a>
-            </div>
+                <div class="main-navigation--menu">
+                    <div class="container">
+                        <div class="main-navigation--menu-inner">
+                            <div class="left">
+                                <a href="/" class="brand">
+                                    <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
+                                    <img class="dark-logo" src="img/logo/logo.svg" alt="" />
+                                </a>
+                            </div>
 
-            <div class="center">
-              <div class="search-fold" x-on:click="expandSearch()">
-                <span>Search events near you</span>
-                <button class="mini-search-button">
-                  <i data-feather="search"></i>
-                </button>
-              </div>
-            </div>
+                            <div class="center">
+                                <div class="search-fold" x-on:click="expandSearch()">
+                                    <span>Search events near you</span>
+                                    <button class="mini-search-button">
+                                        <i data-feather="search"></i>
+                                    </button>
+                                </div>
+                            </div>
 
-            <div class="right">
-              <button class="navigation-link is-icon mx-4 modal-trigger" data-modal="languages-modal">
-                <i data-feather="globe"></i>
-              </button>
-              <div class="account-drop">
-                <button x-on:click="openDrop('account-drop')" x-on:click.away="closeDrop('account-drop')">
-                  <span class="image is-32x32">
-                    <img x-show="$store.app.isLoggedIn === false" class="is-rounded"
-                      src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
-                      data-demo-src="img/photo/avatar/placeholder.png" alt="" />
-                    <img x-show="$store.app.isLoggedIn === true" class="is-rounded"
-                      src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
-                      data-demo-src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png" alt="" />
-                  </span>
-                </button>
-                <div x-show.transition="accountDropOpened" class="drop-menu">
-                  <div class="drop-menu-inner">
-                    <a href="login-page.html" x-show="$store.app.isLoggedIn === false"
-                      class="drop-menu-item is-heavy">Sign
-                      In</a>
-                    <a href="register-page.html" x-show="$store.app.isLoggedIn === false"
-                      class="drop-menu-item">Register</a>
-                    <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
-                      class="drop-menu-item">Account</a>
-                    <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
-                      class="drop-menu-item">Settings</a>
-                    <a href="account-schedule.html" x-show="$store.app.isLoggedIn === true"
-                      class="drop-menu-item">Schedule</a>
-                    <hr />
-                    <!-- <a href="host.html" class="drop-menu-item">Host Event</a> -->
-                    <a href="events.html" class="drop-menu-item">Explore Venues</a>
-                    <a href="how.html" class="drop-menu-item">Help</a>
-                    <a x-show="$store.app.isLoggedIn === false" class="drop-menu-item" x-on:click="logout()">Logout</a>
-                  </div>
+                            <div class="right">
+                                <button class="navigation-link is-icon mx-4 modal-trigger" data-modal="languages-modal">
+                                    <i data-feather="globe"></i>
+                                </button>
+                                <div class="account-drop">
+                                    <button x-on:click="openDrop('account-drop')"
+                                        x-on:click.away="closeDrop('account-drop')">
+                                        <span class="image is-32x32">
+                                            <img x-show="$store.app.isLoggedIn === false" class="is-rounded"
+                                                src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                data-demo-src="img/photo/avatar/placeholder.png" alt="" />
+                                            <img x-show="$store.app.isLoggedIn === true" class="is-rounded"
+                                                src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                data-demo-src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                alt="" />
+                                        </span>
+                                    </button>
+                                    <div x-show.transition="accountDropOpened" class="drop-menu">
+                                        <div class="drop-menu-inner">
+                                            <a href="login-page.html" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item is-heavy">Sign
+                                                In</a>
+                                            <a href="register-page.html" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item">Register</a>
+                                            <a href="" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item">Location</a>
+                                            <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Account</a>
+                                            <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Settings</a>
+                                            <a href="account-schedule.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Schedule</a>
+                                            <hr />
+                                            <!-- <a href="host.html" class="drop-menu-item">Host Event</a> -->
+                                            <a href="" class="drop-menu-item">List Spaces</a>
+                                            <a href="" class="drop-menu-item">Explore Spaces</a>
+                                            <a href="how.html" class="drop-menu-item">Help</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="main-navigation--search">
-        <form id="search-form">
-          <div class="search-bar" x-on:click.away="disableSearch()">
-            <div
-              class="block-30"
-              x-on:click.stop="openDrop('location-drop'), $refs.locationInput.focus()"
-              x-on:click.away="closeDrop('location-drop')"
-              x-bind:class="{
+                <div class="main-navigation--search">
+                    <form id="search-form">
+                        <div class="search-bar" x-on:click.away="disableSearch()">
+                            <div class="block-30"
+                                x-on:click.stop="openDrop('location-drop'), $refs.locationInput.focus()"
+                                x-on:click.away="closeDrop('location-drop')" x-bind:class="{
                             'is-active': locationDropOpened,
                             '': !locationDropOpened
-                        }"
-            >
-              <div class="field">
-                <label>Location</label>
-                <div class="control">
-                  <input
-                    x-ref="locationInput"
-                    required="required"
-                    placeholder="Where are you?"
-                  />
-                  <button type="reset" class="clear-value">
-                    <i data-feather="x"></i>
-                  </button>
-                </div>
-              </div>
-    
-              <div x-show.transition="locationDropOpened" class="location-dropdown">
-                <div class="location-dropdown-inner">
-                  <a class="near-link">
-                    <div class="near-icon">
-                      <i data-feather="map-pin"></i>
-                    </div>
-                    <span>Explore events near you</span>
-                  </a>
-                  <div class="near-tags">
-                    <h4>Places near you</h4>
-                    <div class="tags">
-                      <span class="tag">Los Angeles</span>
-                      <span class="tag">San Francisco</span>
-                      <span class="tag">San Diego</span>
-                      <span class="tag">Orange County</span>
-                      <span class="tag">San Juan</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="block-20"
-              x-on:click="openDrop('start-date-drop'), $refs.startDateInput.focus()"
-              x-on:click.away="closeDrop('start-date-drop')"
-              x-bind:class="{
-                            'is-active': startDateDropOpened,
-                            '': !startDateDropOpened
-                        }"
-            >
-              <div class="field">
-                <label>Guests</label>
-                <div class="control">
-                  <input
-                    x-ref="startDateInput"
-                    required="required"
-                    class="search-datepicker-start"
-                    placeholder="Number of People"
-                  />
-                  <button type="reset" class="clear-value">
-                    <i data-feather="x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="block-20"
-              x-on:click="openDrop('end-date-drop'), $refs.endDateInput.focus()"
-              x-on:click.away="closeDrop('end-date-drop')"
-              x-bind:class="{
+                        }">
+                                <div class="field">
+                                    <label>Location</label>
+                                    <div class="control">
+                                        <input x-ref="locationInput" required="required" placeholder="Where are you?" />
+                                        <button type="reset" class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div x-show.transition="locationDropOpened" class="location-dropdown">
+                                    <div class="location-dropdown-inner">
+                                        <a class="near-link">
+                                            <div class="near-icon">
+                                                <i data-feather="map-pin"></i>
+                                            </div>
+                                            <span>Explore Venue near you</span>
+                                        </a>
+                                        <div class="near-tags">
+                                            <h4>Places near you</h4>
+                                            <div class="tags">
+                                                <span class="tag">Nagpur</span>
+                                                <span class="tag">Mumbai</span>
+                                                <span class="tag">Pune</span>
+                                                <span class="tag">Akola</span>
+                                                <span class="tag">Nashik</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-20" x-on:click="openDrop('end-date-drop'), $refs.endDateInput.focus()"
+                                x-on:click.away="closeDrop('end-date-drop')" x-bind:class="{
                             'is-active': endDateDropOpened,
                             '': !endDateDropOpened
-                        }"
-            >
-              <div class="field">
-                <label>Starting</label>
-                <div class="control">
-                  <input
-                    x-ref="endDateInput"
-                    required="required"
-                    class="search-datepicker-end"
-                    placeholder="Select a date"
-                  />
-                  <button
-                    x-on:click="$refs.endDateInput.value = ''"
-                    type="reset"
-                    class="clear-value"
-                  >
-                    <i data-feather="x"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="block-30"
-              x-on:click="openDrop('type-drop'), $refs.typeInput.focus()"
-              x-on:click.away="closeDrop('type-drop')"
-              x-bind:class="{
+                        }">
+                                <div class="field">
+                                    <label>Guests</label>
+                                    <div class="control">
+                                        <input x-ref="endDateInput" required="required" class="search-datepicker-end"
+                                            placeholder="Number of People" />
+                                        <button x-on:click="$refs.endDateInput.value = ''" type="reset"
+                                            class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-20" x-on:click="openDrop('start-date-drop'), $refs.startDateInput.focus()"
+                                x-on:click.away="closeDrop('start-date-drop')" x-bind:class="{
+                            'is-active': startDateDropOpened,
+                            '': !startDateDropOpened
+                        }">
+                                <div class="field">
+                                    <label>Starting</label>
+                                    <div class="control">
+                                        <input x-ref="startDateInput" required="required"
+                                            class="search-datepicker-start" placeholder="Select a date" />
+                                        <button type="reset" class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-30" x-on:click="openDrop('type-drop'), $refs.typeInput.focus()"
+                                x-on:click.away="closeDrop('type-drop')" x-bind:class="{
                             'is-active': typeDropOpened,
                             '': !typeDropOpened
-                        }"
-            >
-              <div class="field has-search-button">
-                <label>Venue Type</label>
-                <div class="control">
-                  <input
-                    x-ref="typeInput"
-                    required="required"
-                    placeholder="Pick a type"
-                  />
-                  <button type="reset" class="clear-value">
-                    <i data-feather="x"></i>
-                  </button>
-                </div>
-              </div>
-    
-              <div x-show.transition="typeDropOpened" class="type-dropdown">
-                <div class="type-dropdown-inner">
-                  <div class="type-block">
-                    <div class="meta">
-                      <span>General audience</span>
-                      <span>Suitable for everyone</span>
-                    </div>
-                    <div class="action">
-                      <label class="form-switch is-primary">
-                        <input
-                          type="radio"
-                          name="search_type_radio"
-                          class="is-switch"
-                          checked
-                        />
-                        <i></i>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="type-block">
-                    <div class="meta">
-                      <span>Family</span>
-                      <span>Suitable for kids and families</span>
-                    </div>
-                    <div class="action">
-                      <label class="form-switch is-primary">
-                        <input
-                          type="radio"
-                          name="search_type_radio"
-                          class="is-switch"
-                        />
-                        <i></i>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="type-block">
-                    <div class="meta">
-                      <span>Adults only</span>
-                      <span>Only for adults and grown ups</span>
-                    </div>
-                    <div class="action">
-                      <label class="form-switch is-primary">
-                        <input
-                          type="radio"
-                          name="search_type_radio"
-                          class="is-switch"
-                        />
-                        <i></i>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-    
-              <button
-                type="button"
-                class="search-button"
-                x-bind:class="{
+                        }">
+                                <div class="field has-search-button">
+                                    <label>Venue Type</label>
+                                    <div class="control">
+                                        <input x-ref="typeInput" required="required" placeholder="Pick a type" />
+                                        <button type="reset" class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div x-show.transition="typeDropOpened" class="type-dropdown">
+                                    <div class="type-dropdown-inner">
+                                        <div class="type-block">
+                                            <div class="meta">
+                                                <span>General audience</span>
+                                                <span>Suitable for everyone</span>
+                                            </div>
+                                            <div class="action">
+                                                <label class="form-switch is-primary">
+                                                    <input type="radio" name="search_type_radio" class="is-switch"
+                                                        checked />
+                                                    <i></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="type-block">
+                                            <div class="meta">
+                                                <span>Family</span>
+                                                <span>Suitable for kids and families</span>
+                                            </div>
+                                            <div class="action">
+                                                <label class="form-switch is-primary">
+                                                    <input type="radio" name="search_type_radio" class="is-switch" />
+                                                    <i></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="type-block">
+                                            <div class="meta">
+                                                <span>Adults only</span>
+                                                <span>Only for adults and grown ups</span>
+                                            </div>
+                                            <div class="action">
+                                                <label class="form-switch is-primary">
+                                                    <input type="radio" name="search_type_radio" class="is-switch" />
+                                                    <i></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="search-button" x-bind:class="{
                                 'is-expanded': searchActive,
                                 '': !searchActive
-                            }"
-              >
-                <i data-feather="search"></i>
-                <span> Search</span>
-              </button>
+                            }">
+                                    <i data-feather="search"></i>
+                                    <span> Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </main>
+        </main>
 
-  <div class="progress-wrap" x-data="initBackToTop()" x-init="setup()" x-on:scroll.window="scroll()" x-bind:class="{
+        <div class="progress-wrap" x-data="initBackToTop()" x-init="setup()" x-on:scroll.window="scroll()" x-bind:class="{
         'active-progress': scrolled,
         '': !scrolled,
         }" x-on:click="scrollTop()">
-    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-    </svg>
-  </div>
-
-  <div id="languages-modal" class="modal">
-    <div class="modal-background modal-dismiss"></div>
-    <div class="modal-content">
-      <!--Modal card-->
-      <div class="card">
-        <header class="card-header">
-          <div class="card-header-title">
-            <span>Select a language</span>
-          </div>
-          <button class="modal-dismiss">
-            <span class="icon">
-              <i data-feather="x"></i>
-            </span>
-          </button>
-        </header>
-        <div class="card-content">
-          <div class="check-cards-group">
-            <!--Card-->
-            <div class="check-card">
-              <input type="radio" name="language_selection" checked />
-              <div class="check-card-inner">
-                <img src="https://listkit.cssninja.io/img/icons/flags/united-states-of-america.svg"
-                  data-demo-src="img/icons/flags/united-states-of-america.svg" alt="" />
-                <div class="meta">
-                  <span>English [US]</span>
-                </div>
-              </div>
-            </div>
-            <!--Card-->
-            <div class="check-card">
-              <input type="radio" name="language_selection" />
-              <div class="check-card-inner">
-                <img src="https://listkit.cssninja.io/img/icons/flags/england.svg"
-                  data-demo-src="img/icons/flags/england.svg" alt="" />
-                <div class="meta">
-                  <span>English [UK]</span>
-                </div>
-              </div>
-            </div>
-            <!--Card-->
-            <div class="check-card">
-              <input type="radio" name="language_selection" />
-              <div class="check-card-inner">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
-                  data-demo-src="img/icons/flags/france.svg" alt="" />
-                <div class="meta">
-                  <span>Hindi</span>
-                </div>
-              </div>
-            </div>
-            <!--Card-->
-            <div class="check-card">
-              <input type="radio" name="language_selection" />
-              <div class="check-card-inner">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
-                  data-demo-src="img/icons/flags/germany.svg" alt="" />
-                <div class="meta">
-                  <span>Marathi</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+            </svg>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Header End -->
+        <div id="languages-modal" class="modal">
+            <div class="modal-background modal-dismiss"></div>
+            <div class="modal-content">
+                <!--Modal card-->
+                <div class="card">
+                    <header class="card-header">
+                        <div class="card-header-title">
+                            <span>Select a language</span>
+                        </div>
+                        <button class="modal-dismiss">
+                            <span class="icon">
+                                <i data-feather="x"></i>
+                            </span>
+                        </button>
+                    </header>
+                    <div class="card-content">
+                        <div class="check-cards-group">
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" checked />
+                                <div class="check-card-inner">
+                                    <img src="https://listkit.cssninja.io/img/icons/flags/united-states-of-america.svg"
+                                        data-demo-src="img/icons/flags/united-states-of-america.svg" alt="" />
+                                    <div class="meta">
+                                        <span>English [US]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://listkit.cssninja.io/img/icons/flags/england.svg"
+                                        data-demo-src="img/icons/flags/england.svg" alt="" />
+                                    <div class="meta">
+                                        <span>English [UK]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+                                        data-demo-src="img/icons/flags/france.svg" alt="" />
+                                    <div class="meta">
+                                        <span>Hindi</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+                                        data-demo-src="img/icons/flags/germany.svg" alt="" />
+                                    <div class="meta">
+                                        <span>Marathi</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header End -->
 
 
         <div class="dual-container">
@@ -412,7 +362,7 @@
                     <div>
                         <div class="flat-carousels-wrapper" x-data="initFlatCarousels()">
                             <!--Title-->
-                            <h4 class="title is-5 is-narrow">From your last trip</h4>
+                            <h4 class="title is-5 is-narrow">From your last search</h4>
 
                             <!--Scheduled events carousel-->
                             <div class="flats">
@@ -424,8 +374,8 @@
                                             <li class="glide__slide map-popup-item" data-location="0">
                                                 <div class="flat">
                                                     <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/19.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/19.jpg">
+                                                        data-background="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/74/1b/64/exterior.jpg?w=1100&h=-1&s=1"
+                                                        data-demo-background="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/74/1b/64/exterior.jpg?w=1100&h=-1&s=1">
                                                         <div class="action-bar">
                                                             <button class="button wishlist-button">
                                                                 <i data-feather="heart"></i>
@@ -437,11 +387,10 @@
                                                             <i data-feather="star"></i>
                                                             <span>3,72</span>
                                                             <span class="px-2">·</span>
-                                                            <span>Marbella, Spain</span>
+                                                            <span>Nagpur, Maharashtra</span>
                                                         </div>
                                                         <p class="flat-name">
-                                                            <a>Cosy and classy house for your parties in
-                                                                Marbella</a>
+                                                            <a>Radission Blu Hotel, Nagpur</a>
                                                         </p>
                                                         <p class="flat-price">
                                                             Starting from $210 <small>/night</small>
@@ -453,8 +402,8 @@
                                             <li class="glide__slide map-popup-item" data-location="1">
                                                 <div class="flat">
                                                     <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/20.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/20.jpg">
+                                                        data-background="https://www.chattarpurfarms.com/imgs/7.jpg"
+                                                        data-demo-background="https://www.chattarpurfarms.com/imgs/7.jpg">
                                                         <div class="action-bar">
                                                             <button class="button wishlist-button">
                                                                 <i data-feather="heart"></i>
@@ -466,11 +415,10 @@
                                                             <i data-feather="star"></i>
                                                             <span>4,69</span>
                                                             <span class="px-2">·</span>
-                                                            <span>Fuengirola, Spain</span>
+                                                            <span>Nagpur, Maharashtra</span>
                                                         </div>
                                                         <p class="flat-name">
-                                                            <a>Outstanding beach house for your family
-                                                                vacations</a>
+                                                            <a>Chattarpur Farms Guest Building</a>
                                                         </p>
                                                         <p class="flat-price">
                                                             Starting from $140 <small>/night</small>
@@ -482,8 +430,8 @@
                                             <li class="glide__slide map-popup-item" data-location="2">
                                                 <div class="flat">
                                                     <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/21.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/21.jpg">
+                                                        data-background="https://lh3.googleusercontent.com/qGsJ4zM_k-aCzzICvEQKWF08uIlrrKupycDiSjAagG7Mpy8k-yKeqHTEZgysfpTO24TyAl1cDlZLWKhLfa9lmZJBZpA=w256-rw"
+                                                        data-demo-background="https://lh3.googleusercontent.com/qGsJ4zM_k-aCzzICvEQKWF08uIlrrKupycDiSjAagG7Mpy8k-yKeqHTEZgysfpTO24TyAl1cDlZLWKhLfa9lmZJBZpA=w256-rw">
                                                         <div class="action-bar">
                                                             <button class="button wishlist-button">
                                                                 <i data-feather="heart"></i>
@@ -495,11 +443,10 @@
                                                             <i data-feather="star"></i>
                                                             <span>4,87</span>
                                                             <span class="px-2">·</span>
-                                                            <span>Torremolinos, Spain</span>
+                                                            <span>Nagpur, Maharashtra</span>
                                                         </div>
                                                         <p class="flat-name">
-                                                            <a>Incredible beach house with a large swimming
-                                                                pool</a>
+                                                            <a>The East India Company - The Restro Lounge</a>
                                                         </p>
                                                         <p class="flat-price">
                                                             Starting from $195 <small>/night</small>
@@ -511,8 +458,8 @@
                                             <li class="glide__slide map-popup-item" data-location="3">
                                                 <div class="flat">
                                                     <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/22.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/22.jpg">
+                                                        data-background="https://b.zmtcdn.com/data/pictures/6/19574556/1cb1b77568453a40bedfc3b3396d3c63.jpg"
+                                                        data-demo-background="https://b.zmtcdn.com/data/pictures/6/19574556/1cb1b77568453a40bedfc3b3396d3c63.jpg">
                                                         <div class="action-bar">
                                                             <button class="button wishlist-button">
                                                                 <i data-feather="heart"></i>
@@ -524,712 +471,13 @@
                                                             <i data-feather="star"></i>
                                                             <span>4,12</span>
                                                             <span class="px-2">·</span>
-                                                            <span>Malaga, Spain</span>
+                                                            <span>Nagpur, Maharashtra</span>
                                                         </div>
                                                         <p class="flat-name">
-                                                            <a>Lone beach house with barbecue and all
-                                                                conveniences</a>
+                                                            <a>High Steaks Nagpur</a>
                                                         </p>
                                                         <p class="flat-price">
                                                             Starting from $90 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="4">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/23.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/23.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,55</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Malaga, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Personal palace located on the beach for a family
-                                                                trip</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $210 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="5">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/24.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/24.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,61</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Benalmadena, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Piloti beach house for friends or family trips</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $150 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="6">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/25.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/25.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,97</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Marbella, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Classy house on a cliff with all conveniences</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $260 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="7">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/26.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/26.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,65</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Torremolinos, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Incredible loft green house for a group of
-                                                                tourists</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $190 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="8">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/27.jpg"
-                                                        data-demo-background="https://listkit.cssninja.io/img/photo/content/events/carousel/27.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,99</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Malaga, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Modern ranch near the see for a friends or family
-                                                                trip</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $230 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="glide__arrows" data-glide-el="controls">
-                                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-                                            <i data-feather="arrow-left"></i>
-                                        </button>
-                                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-                                            <i data-feather="arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Title-->
-                            <h4 class="title is-5 is-narrow">Suggested flats</h4>
-
-                            <!--Scheduled events carousel-->
-                            <div class="flats">
-                                <div class="flats-inner glide flat-carousel">
-                                    <div class="glide__track" data-glide-el="track">
-                                        <!--Carousel-->
-                                        <ul class="glide__slides">
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="9">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/10.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/10.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,72</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Nazare, Portugal</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Outstanding beach side villa with swimming pool</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $180 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="10">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/11.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/11.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,38</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>New York, NY</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Superb luxury house in the outskirts of New York</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $240 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="11">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/12.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/12.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,87</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Miami, FL</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Cosy indoor for a perfect family weekend</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $95 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="12">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/16.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/16.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,26</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Copacabana, Brazil</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Modern villa in the heart of Copacabana</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $165 <small>/person</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="13">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/13.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/13.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,89</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Toronto, Canada</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Multifunctionnal studio for a few days stay</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $105 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="14">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/14.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/14.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,88</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Paris, France</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Very classy apartment in the heart of Paris XVIe</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $245 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="15">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/15.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/15.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,55</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Madrid, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Nice and cosy apartment near the Prado Museum</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $190 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="16">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/17.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/17.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>3,84</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Paris, France</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Ideal and perfectly decorated studio</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $80 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="17">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/18.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/18.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,99</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Berlin, Germany</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Nice and cosy beach house with all conveniences</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $220 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="glide__arrows" data-glide-el="controls">
-                                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-                                            <i data-feather="arrow-left"></i>
-                                        </button>
-                                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-                                            <i data-feather="arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Title-->
-                            <h4 class="title is-5 is-narrow">You might also like</h4>
-
-                            <!--Scheduled events carousel-->
-                            <div class="flats">
-                                <div class="flats-inner glide flat-carousel">
-                                    <div class="glide__track" data-glide-el="track">
-                                        <!--Carousel-->
-                                        <ul class="glide__slides">
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="18">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/28.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/28.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,81</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Torremolinos, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Very classy residence, private pool and all
-                                                                conveniences</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $180 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="19">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/29.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/29.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,72</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Benalmadena, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Incredible loft house with pool and conveniences</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $240 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="20">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/30.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/30.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,81</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Benalmadena, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Jet set beach house near Benalmadena puerto</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $310 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="21">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/31.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/31.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,74</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Fuengirola, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Beautiful traditional house in the heart of
-                                                                Fuengirola</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $145 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="22">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/32.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/32.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,89</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Torremolinos, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Modern duplex apartment in the center of
-                                                                Torremolinos</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $190 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="23">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/33.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/33.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,21</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Malaga, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Nice and modern villa in the outskirts of Malaga</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $130 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="24">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/34.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/34.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,97</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Torremolinos, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Incredible modern decorated apartment in the town
-                                                                center</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $160 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="25">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/35.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/35.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,84</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Benalmadena, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Nice and cosy apartment in the center of
-                                                                Benalmadena</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $150 <small>/night</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <!--Carousel item-->
-                                            <li class="glide__slide map-popup-item" data-location="26">
-                                                <div class="flat">
-                                                    <div class="flat-image map-popup-trigger"
-                                                        data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/36.jpg"
-                                                        data-demo-background="img/photo/content/events/carousel/36.jpg">
-                                                        <div class="action-bar">
-                                                            <button class="button wishlist-button">
-                                                                <i data-feather="heart"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flat-content">
-                                                        <div class="flat-rating">
-                                                            <i data-feather="star"></i>
-                                                            <span>4,99</span>
-                                                            <span class="px-2">·</span>
-                                                            <span>Fuengirola, Spain</span>
-                                                        </div>
-                                                        <p class="flat-name">
-                                                            <a>Impressive beach house right in front of the sea</a>
-                                                        </p>
-                                                        <p class="flat-price">
-                                                            Starting from $280 <small>/night</small>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -1260,7 +508,8 @@
                             <div class="column is-4">
                                 <a class="media-flex-center">
                                     <figure class="image is-64x64">
-                                        <img class="is-rounded-md" src="https://listkit.cssninja.io/img/icons/locations/1.svg"
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/1.svg"
                                             data-demo-src="img/icons/locations/1.svg" />
                                     </figure>
                                     <div class="flex-meta">
@@ -1274,7 +523,8 @@
                             <div class="column is-4">
                                 <a class="media-flex-center">
                                     <figure class="image is-64x64">
-                                        <img class="is-rounded-md" src="https://listkit.cssninja.io/img/icons/locations/2.svg"
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/2.svg"
                                             data-demo-src="img/icons/locations/2.svg" />
                                     </figure>
                                     <div class="flex-meta">
@@ -1288,7 +538,8 @@
                             <div class="column is-4">
                                 <a class="media-flex-center">
                                     <figure class="image is-64x64">
-                                        <img class="is-rounded-md" src="https://listkit.cssninja.io/img/icons/locations/4.svg"
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/4.svg"
                                             data-demo-src="img/icons/locations/4.svg" />
                                     </figure>
                                     <div class="flex-meta">
@@ -1302,7 +553,8 @@
                             <div class="column is-4">
                                 <a class="media-flex-center">
                                     <figure class="image is-64x64">
-                                        <img class="is-rounded-md" src="https://listkit.cssninja.io/img/icons/locations/3.svg"
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/3.svg"
                                             data-demo-src="img/icons/locations/3.svg" />
                                     </figure>
                                     <div class="flex-meta">
@@ -1316,7 +568,8 @@
                             <div class="column is-4">
                                 <a class="media-flex-center">
                                     <figure class="image is-64x64">
-                                        <img class="is-rounded-md" src="https://listkit.cssninja.io/img/icons/locations/5.svg"
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/5.svg"
                                             data-demo-src="img/icons/locations/5.svg" />
                                     </figure>
                                     <div class="flex-meta">
@@ -1330,7 +583,8 @@
                             <div class="column is-4">
                                 <a class="media-flex-center">
                                     <figure class="image is-64x64">
-                                        <img class="is-rounded-md" src="https://listkit.cssninja.io/img/icons/locations/6.svg"
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/6.svg"
                                             data-demo-src="img/icons/locations/6.svg" />
                                     </figure>
                                     <div class="flex-meta">
@@ -1350,22 +604,22 @@
                     <!--List-->
                     <div class="flat-list-inner">
                         <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="27">
+                        <div class="flat-list-item map-popup-item" data-location="4">
                             <div class="action-bar">
                                 <button class="button wishlist-button">
                                     <i data-feather="heart"></i>
                                 </button>
                             </div>
                             <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/37.jpg"
+                                data-background="https://images.trvl-media.com/lodging/9000000/8440000/8439200/8439181/25ebe32c.jpg?impolicy=resizecrop&rw=1200&ra=fit"
                                 data-demo-background="img/photo/content/events/carousel/37.jpg"></div>
                             <div class="list-item-content">
                                 <div class="list-item-info">
                                     <div class="list-item-precontent">
-                                        <span>Torremolinos, Spain</span>
+                                        <span>Sadar, Nagpur, Maharashtra 440001</span>
                                     </div>
                                     <p class="list-item-name">
-                                        <a>Great apartment in the center of the town</a>
+                                        <a>Tuli International</a>
                                     </p>
                                     <p class="list-item-details">
                                         <span>2 people</span>
@@ -1387,22 +641,22 @@
                             </div>
                         </div>
                         <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="28">
+                        <div class="flat-list-item map-popup-item" data-location="5">
                             <div class="action-bar">
                                 <button class="button wishlist-button">
                                     <i data-feather="heart"></i>
                                 </button>
                             </div>
                             <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/38.jpg"
+                                data-background="https://lh3.googleusercontent.com/Kg7jfajMYZEhaiZkAGwe9ydEYT4-etkXFE4SlinSLyU1CG48E8uepXRvTiYYozADe3SEojv_y8H7lov8-JzxjJCd=w746-h498-l95-e31"
                                 data-demo-background="img/photo/content/events/carousel/38.jpg"></div>
                             <div class="list-item-content">
                                 <div class="list-item-info">
                                     <div class="list-item-precontent">
-                                        <span>Benalmadena, Spain</span>
+                                        <span>Kawtha Rd, New Khasala, Maharashtra 441001</span>
                                     </div>
                                     <p class="list-item-name">
-                                        <a>Luxuous apartment with all conveniences</a>
+                                        <a>Lamba Celebrations</a>
                                     </p>
                                     <p class="list-item-details">
                                         <span>4 people</span>
@@ -1424,22 +678,22 @@
                             </div>
                         </div>
                         <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="29">
+                        <div class="flat-list-item map-popup-item" data-location="6">
                             <div class="action-bar">
                                 <button class="button wishlist-button">
                                     <i data-feather="heart"></i>
                                 </button>
                             </div>
                             <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/39.jpg"
+                                data-background="https://cf.bstatic.com/xdata/images/hotel/max1024x768/77773581.jpg?k=bc8e7a90ee54eaed5eb797ab768497213f38c73fdd44a4f1ca74a7a9499821a7&o=&hp=1"
                                 data-demo-background="img/photo/content/events/carousel/39.jpg"></div>
                             <div class="list-item-content">
                                 <div class="list-item-info">
                                     <div class="list-item-precontent">
-                                        <span>Benalmadena, Spain</span>
+                                        <span>Wardha Road, Flyover, opp. Mihan, Nagpur, Maharashtra 441108</span>
                                     </div>
                                     <p class="list-item-name">
-                                        <a>Nice and cosy house in the center of the town</a>
+                                        <a>Le Meridien</a>
                                     </p>
                                     <p class="list-item-details">
                                         <span>5 people</span>
@@ -1461,22 +715,22 @@
                             </div>
                         </div>
                         <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="30">
+                        <div class="flat-list-item map-popup-item" data-location="7">
                             <div class="action-bar">
                                 <button class="button wishlist-button">
                                     <i data-feather="heart"></i>
                                 </button>
                             </div>
                             <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/40.jpg"
+                                data-background="https://image.wedmegood.com/resized/450X/uploads/member/1190281/1586556695_Screenshot_from_2020_04_11_03_34_39.png?crop=59,1,784,441"
                                 data-demo-background="img/photo/content/events/carousel/40.jpg"></div>
                             <div class="list-item-content">
                                 <div class="list-item-info">
                                     <div class="list-item-precontent">
-                                        <span>Fuengirola, Spain</span>
+                                        <span>237, Temple Rd, Civil Lines, Nagpur, Maharashtra 440001</span>
                                     </div>
                                     <p class="list-item-name">
-                                        <a>Nice studio for and ideal trip in Fuengirola</a>
+                                        <a>Rani Kothi Banquet Hall</a>
                                     </p>
                                     <p class="list-item-details">
                                         <span>2 people</span>
@@ -1498,22 +752,22 @@
                             </div>
                         </div>
                         <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="31">
+                        <div class="flat-list-item map-popup-item" data-location="8">
                             <div class="action-bar">
                                 <button class="button wishlist-button">
                                     <i data-feather="heart"></i>
                                 </button>
                             </div>
                             <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/41.jpg"
+                                data-background="https://media.weddingz.in/images/244199509ab295605e93a2061263222c/cp-club-cp-club-lawn-1-lawn-2-25.jpg"
                                 data-demo-background="img/photo/content/events/carousel/41.jpg"></div>
                             <div class="list-item-content">
                                 <div class="list-item-info">
                                     <div class="list-item-precontent">
-                                        <span>Mijas, Spain</span>
+                                        <span>5344+389, Civil Lines, Nagpur, Maharashtra 440001</span>
                                     </div>
                                     <p class="list-item-name">
-                                        <a>Vegetal house in the outskirts of Mijas</a>
+                                        <a>C P Club</a>
                                     </p>
                                     <p class="list-item-details">
                                         <span>6 people</span>
@@ -1535,22 +789,22 @@
                             </div>
                         </div>
                         <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="32">
+                        <div class="flat-list-item map-popup-item" data-location="9">
                             <div class="action-bar">
                                 <button class="button wishlist-button">
                                     <i data-feather="heart"></i>
                                 </button>
                             </div>
                             <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/42.jpg"
+                                data-background="https://lh3.googleusercontent.com/p/AF1QipOPkFIJZfsW_0HBPRtZCgqXgY_5lhtHvkltXvJr=s680-w680-h510"
                                 data-demo-background="img/photo/content/events/carousel/42.jpg"></div>
                             <div class="list-item-content">
                                 <div class="list-item-info">
                                     <div class="list-item-precontent">
-                                        <span>Malaga, Spain</span>
+                                        <span>56, Temple Rd, Dobhi Nagar, Civil Lines, Nagpur, Maharashtra 440001</span>
                                     </div>
                                     <p class="list-item-name">
-                                        <a>Incredible garden house in the center of Malaga</a>
+                                        <a>Chitnavis Centre</a>
                                     </p>
                                     <p class="list-item-details">
                                         <span>4 people</span>
@@ -1572,22 +826,22 @@
                             </div>
                         </div>
                         <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="33">
+                        <div class="flat-list-item map-popup-item" data-location="10">
                             <div class="action-bar">
                                 <button class="button wishlist-button">
                                     <i data-feather="heart"></i>
                                 </button>
                             </div>
                             <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/43.jpg"
+                                data-background="https://lh3.googleusercontent.com/p/AF1QipO-Md-yIXpxpONFD8mrg25TLHCh2IGfrX9C8yu4=s680-w680-h510"
                                 data-demo-background="img/photo/content/events/carousel/43.jpg"></div>
                             <div class="list-item-content">
                                 <div class="list-item-info">
                                     <div class="list-item-precontent">
-                                        <span>Torremolinos, Spain</span>
+                                        <span>Amdar Niwas, Temple Rd, Civil Lines, Nagpur, Maharashtra 440001</span>
                                     </div>
                                     <p class="list-item-name">
-                                        <a>Sea facing villa with a private pool</a>
+                                        <a>Dr. Vasantrao Deshpande Memorial Hall</a>
                                     </p>
                                     <p class="list-item-details">
                                         <span>2 people</span>
@@ -1609,22 +863,22 @@
                             </div>
                         </div>
                         <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="34">
+                        <div class="flat-list-item map-popup-item" data-location="11">
                             <div class="action-bar">
                                 <button class="button wishlist-button">
                                     <i data-feather="heart"></i>
                                 </button>
                             </div>
                             <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/44.jpg"
+                                data-background="https://images.jdmagicbox.com/comp/nagpur/m5/0712px712.x712.180613182501.r5m5/catalogue/ambika-farms-katol-road-nagpur-resorts-h7y94.jpg"
                                 data-demo-background="img/photo/content/events/carousel/44.jpg"></div>
                             <div class="list-item-content">
                                 <div class="list-item-info">
                                     <div class="list-item-precontent">
-                                        <span>Fuengirola, Spain</span>
+                                        <span>35th Milestone, Katol Road, Behind IMT College, Nagpur, Maharashtra 441502"</span>
                                     </div>
                                     <p class="list-item-name">
-                                        <a>Magnificent garden house in the outskirts of the city</a>
+                                        <a>Ambika Farms</a>
                                     </p>
                                     <p class="list-item-details">
                                         <span>4 people</span>
@@ -1641,450 +895,6 @@
                                     <div class="list-item-rating">
                                         <i data-feather="star"></i>
                                         <span>4,22</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="35">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/45.jpg"
-                                data-demo-background="img/photo/content/events/carousel/45.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Malaga, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Great post colonial house in the center of Malaga</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>8 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>5 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>4 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 bathrooms</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$310/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,87</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="36">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/46.jpg"
-                                data-demo-background="img/photo/content/events/carousel/46.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Mijas, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Hobbit-like house in the outskirts of Mijas</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>2 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>1 bed</span>
-                                        <span class="px-1">·</span>
-                                        <span>1 bathroom</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$175/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,92</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="37">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/47.jpg"
-                                data-demo-background="img/photo/content/events/carousel/47.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Benalmadena, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Nice family house in the close suburbs</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>4 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 bathrooms</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$160/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,89</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="38">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/48.jpg"
-                                data-demo-background="img/photo/content/events/carousel/48.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Malaga, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Cosy family house for an ideal nature trip</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>5 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>5 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 bathrooms</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$200/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,95</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="39">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/49.jpg"
-                                data-demo-background="img/photo/content/events/carousel/49.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Torremolinos, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Very cute beach house with all conveniences</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>4 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>1 bathroom</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$140/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,99</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="40">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/50.jpg"
-                                data-demo-background="img/photo/content/events/carousel/50.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Torremolinos, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Nice residence in the center with private pool</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>3 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>1 bathroom</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$110/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,49</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="41">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/51.jpg"
-                                data-demo-background="img/photo/content/events/carousel/51.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Fuengirola, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Luxury house in the center of Fuengirola</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>8 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>6 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>4 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 bathrooms</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$280/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,94</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="42">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/52.jpg"
-                                data-demo-background="img/photo/content/events/carousel/52.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Fuengirola, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Cosy house in the center of Fuengirola</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>7 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>5 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 bathrooms</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$240/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,87</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="43">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/53.jpg"
-                                data-demo-background="img/photo/content/events/carousel/53.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Benalmadena, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Nice little house close to the beach and the center</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>4 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>1 bathroom</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$160/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,38</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="44">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/54.jpg"
-                                data-demo-background="img/photo/content/events/carousel/54.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Benalmadena, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Garden villa with barbecue and private pool</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>5 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 bathrooms</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$190/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,59</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="45">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/55.jpg"
-                                data-demo-background="img/photo/content/events/carousel/55.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Torremolinos, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Post colonial house with a private pool and tennis court</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>8 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>6 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>5 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>3 bathrooms</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$360/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,92</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--List item-->
-                        <div class="flat-list-item map-popup-item" data-location="46">
-                            <div class="action-bar">
-                                <button class="button wishlist-button">
-                                    <i data-feather="heart"></i>
-                                </button>
-                            </div>
-                            <div class="list-item-image map-popup-trigger"
-                                data-background="https://listkit.cssninja.io/img/photo/content/events/carousel/56.jpg"
-                                data-demo-background="img/photo/content/events/carousel/56.jpg"></div>
-                            <div class="list-item-content">
-                                <div class="list-item-info">
-                                    <div class="list-item-precontent">
-                                        <span>Malaga, Spain</span>
-                                    </div>
-                                    <p class="list-item-name">
-                                        <a>Downtown private residence near to the town center</a>
-                                    </p>
-                                    <p class="list-item-details">
-                                        <span>4 people</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 rooms</span>
-                                        <span class="px-1">·</span>
-                                        <span>2 beds</span>
-                                        <span class="px-1">·</span>
-                                        <span>1 bathroom</span>
-                                    </p>
-                                </div>
-                                <div class="list-item-amount">
-                                    <span>$160/night</span>
-                                    <div class="list-item-rating">
-                                        <i data-feather="star"></i>
-                                        <span>4,43</span>
                                     </div>
                                 </div>
                             </div>
@@ -2117,114 +927,105 @@
 
     <footer class="main-footer">
         <div class="container">
-          <div class="footer-head">
-            <div class="head-text">
-              <h3>Have any questions?</h3>
-              <p>Our support team answers your questions</p>
-            </div>
-            <div class="head-action">
-              <div class="buttons">
-                <a
-                  href="help-center.html"
-                  class="button is-primary raised action-button is-raised-hover"
-                  >Help Center</a
-                >
-                <a href="help-center.html" target="_blank" class="button chat-button"
-                  >Chat with us</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="columns footer-body">
-            <!-- Column -->
-            <div class="column is-4">
-              <div class="p-t-10 p-b-10">
-                <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
-                <div class="footer-description p-t-10 p-b-10">
-                  Listkit is built for developers and designers. Its modular approach
-                  lets you create awesome webapps with incredible layouts and
-                  elements.
+            <div class="footer-head">
+                <div class="head-text">
+                    <h3>Have any questions?</h3>
+                    <p>Our support team answers your questions</p>
                 </div>
-              </div>
-              <div>
-                <span class="moto"
-                  >Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
-                  Ninja.</span
-                >
-              </div>
+                <div class="head-action">
+                    <div class="buttons">
+                        <a href="help-center.html" class="button is-primary raised action-button is-raised-hover">Help
+                            Center</a>
+                        <a href="help-center.html" target="_blank" class="button chat-button">Chat with us</a>
+                    </div>
+                </div>
             </div>
-            <!-- Column -->
-            <div class="column is-7 is-offset-1">
-              <div class="columns is-flex-tablet-p">
+            <div class="columns footer-body">
                 <!-- Column -->
-                <div class="column">
-                  <ul class="footer-column">
-                    <li class="column-header">Services</li>
-      
-                    <li class="column-item"><a href="events.html">List Of Space</a></li>
-                    <li class="column-item"><a href="flats.html">Party Space</a></li>
-                    <li class="column-item"><a href="trips.html">Trips</a></li>
-                    <li class="column-item">
-                      <a href="corporate.html">Corporate</a>
-                    </li>
-                  </ul>
+                <div class="column is-4">
+                    <div class="p-t-10 p-b-10">
+                        <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
+                        <div class="footer-description p-t-10 p-b-10">
+                            Listkit is built for developers and designers. Its modular approach
+                            lets you create awesome webapps with incredible layouts and
+                            elements.
+                        </div>
+                    </div>
+                    <div>
+                        <span class="moto">Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
+                            Ninja.</span>
+                    </div>
                 </div>
                 <!-- Column -->
-                <div class="column">
-                  <ul class="footer-column">
-                    <li class="column-header">Links</li>
-                    <li class="column-item"><a href="signup.html">Register</a></li>
-                    <li class="column-item"><a href="login.html">Sign In</a></li>
-                    <li class="column-item"><a href="blog.html">News</a></li>
-                    <li class="column-item"><a href="careers.html">Careers</a></li>
-                  </ul>
+                <div class="column is-7 is-offset-1">
+                    <div class="columns is-flex-tablet-p">
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Services</li>
+
+                                <li class="column-item"><a href="events.html">List Of Space</a></li>
+                                <li class="column-item"><a href="flats.html">Party Space</a></li>
+                                <li class="column-item"><a href="trips.html">Trips</a></li>
+                                <li class="column-item">
+                                    <a href="corporate.html">Corporate</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Links</li>
+                                <li class="column-item"><a href="signup.html">Register</a></li>
+                                <li class="column-item"><a href="login.html">Sign In</a></li>
+                                <li class="column-item"><a href="blog.html">News</a></li>
+                                <li class="column-item"><a href="careers.html">Careers</a></li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Help</li>
+                                <li class="column-item"><a href="host.html">Host an Venue</a></li>
+                                <li class="column-item"><a href="how.html">How it works</a></li>
+                                <li class="column-item"><a href="support.html">Support</a></li>
+                                <li class="column-item">
+                                    <a href="help-center.html">Help Center</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Legal</li>
+
+                                <li class="column-item"><a href="#">Terms of Service</a></li>
+                                <li class="column-item"><a href="#">Privacy policy</a></li>
+                                <li class="column-item"><a href="contact.html">Contact</a></li>
+                                <li class="column-item">
+                                    <a class="modal-trigger" data-modal="languages-modal">Language: EN</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <!-- Column -->
-                <div class="column">
-                  <ul class="footer-column">
-                    <li class="column-header">Help</li>
-                    <li class="column-item"><a href="host.html">Host an Venue</a></li>
-                    <li class="column-item"><a href="how.html">How it works</a></li>
-                    <li class="column-item"><a href="support.html">Support</a></li>
-                    <li class="column-item">
-                      <a href="help-center.html">Help Center</a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- Column -->
-                <div class="column">
-                  <ul class="footer-column">
-                    <li class="column-header">Legal</li>
-      
-                    <li class="column-item"><a href="#">Terms of Service</a></li>
-                    <li class="column-item"><a href="#">Privacy policy</a></li>
-                    <li class="column-item"><a href="contact.html">Contact</a></li>
-                    <li class="column-item">
-                      <a class="modal-trigger" data-modal="languages-modal"
-                        >Language: EN</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="footer-copyright">
-            <p>
-              &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
-              Rights Reserved.
-            </p>
-            <div>
-              <div class="social-links">
-                <a href="#"><i data-feather="facebook"></i></a>
-                <a href="#"><i data-feather="twitter"></i></a>
-                <a href="#"><i data-feather="linkedin"></i></a>
-                <a href="#"><i data-feather="instagram"></i></a>
-              </div>
+            <div class="footer-copyright">
+                <p>
+                    &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
+                    Rights Reserved.
+                </p>
+                <div>
+                    <div class="social-links">
+                        <a href="#"><i data-feather="facebook"></i></a>
+                        <a href="#"><i data-feather="twitter"></i></a>
+                        <a href="#"><i data-feather="linkedin"></i></a>
+                        <a href="#"><i data-feather="instagram"></i></a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </footer>
+    </footer>
 
 
 

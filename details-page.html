@@ -89,6 +89,8 @@
                                                 In</a>
                                             <a href="register-page.html" x-show="$store.app.isLoggedIn === false"
                                                 class="drop-menu-item">Register</a>
+                                            <a href="" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item">Location</a>
                                             <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
                                                 class="drop-menu-item">Account</a>
                                             <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
@@ -97,10 +99,9 @@
                                                 class="drop-menu-item">Schedule</a>
                                             <hr />
                                             <!-- <a href="host.html" class="drop-menu-item">Host Event</a> -->
-                                            <a href="events.html" class="drop-menu-item">Explore Venues</a>
+                                            <a href="" class="drop-menu-item">List Spaces</a>
+                                            <a href="" class="drop-menu-item">Explore Spaces</a>
                                             <a href="how.html" class="drop-menu-item">Help</a>
-                                            <a x-show="$store.app.isLoggedIn === false" class="drop-menu-item"
-                                                x-on:click="logout()">Logout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -126,41 +127,24 @@
                                         </button>
                                     </div>
                                 </div>
-
                                 <div x-show.transition="locationDropOpened" class="location-dropdown">
                                     <div class="location-dropdown-inner">
                                         <a class="near-link">
                                             <div class="near-icon">
                                                 <i data-feather="map-pin"></i>
                                             </div>
-                                            <span>Explore events near you</span>
+                                            <span>Explore Venue near you</span>
                                         </a>
                                         <div class="near-tags">
                                             <h4>Places near you</h4>
                                             <div class="tags">
-                                                <span class="tag">Los Angeles</span>
-                                                <span class="tag">San Francisco</span>
-                                                <span class="tag">San Diego</span>
-                                                <span class="tag">Orange County</span>
-                                                <span class="tag">San Juan</span>
+                                                <span class="tag">Nagpur</span>
+                                                <span class="tag">Mumbai</span>
+                                                <span class="tag">Pune</span>
+                                                <span class="tag">Akola</span>
+                                                <span class="tag">Nashik</span>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="block-20" x-on:click="openDrop('start-date-drop'), $refs.startDateInput.focus()"
-                                x-on:click.away="closeDrop('start-date-drop')" x-bind:class="{
-                            'is-active': startDateDropOpened,
-                            '': !startDateDropOpened
-                        }">
-                                <div class="field">
-                                    <label>Guests</label>
-                                    <div class="control">
-                                        <input x-ref="startDateInput" required="required"
-                                            class="search-datepicker-start" placeholder="Number of People" />
-                                        <button type="reset" class="clear-value">
-                                            <i data-feather="x"></i>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -170,12 +154,28 @@
                             '': !endDateDropOpened
                         }">
                                 <div class="field">
-                                    <label>Starting</label>
+                                    <label>Guests</label>
                                     <div class="control">
                                         <input x-ref="endDateInput" required="required" class="search-datepicker-end"
-                                            placeholder="Select a date" />
+                                            placeholder="Number of People" />
                                         <button x-on:click="$refs.endDateInput.value = ''" type="reset"
                                             class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-20" x-on:click="openDrop('start-date-drop'), $refs.startDateInput.focus()"
+                                x-on:click.away="closeDrop('start-date-drop')" x-bind:class="{
+                            'is-active': startDateDropOpened,
+                            '': !startDateDropOpened
+                        }">
+                                <div class="field">
+                                    <label>Starting</label>
+                                    <div class="control">
+                                        <input x-ref="startDateInput" required="required"
+                                            class="search-datepicker-start" placeholder="Select a date" />
+                                        <button type="reset" class="clear-value">
                                             <i data-feather="x"></i>
                                         </button>
                                     </div>
@@ -237,7 +237,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <button type="button" class="search-button" x-bind:class="{
                                 'is-expanded': searchActive,
                                 '': !searchActive
