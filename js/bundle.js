@@ -22481,13 +22481,13 @@
                     properties: {
                       name: "Radission Blu Hotel, Nagpur",
                       logo: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/74/1b/64/exterior.jpg?w=1100&h=-1&s=1",
-                      location: "Nagpur, Maharashtra",
+                      location: "Wardha Rd Nagpur, Maharashtra 440015",
                       price: 210,
                       rating: 3.72,
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.10621591376077, 79.06972726470043],
+                      coordinates: [79.06972726470043, 21.10621591376077],
                     },
                   },
                   {
@@ -22501,7 +22501,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.119144008509636, 79.19775144417665],
+                      coordinates: [79.19775144417665, 21.119144008509636],
                     },
                   },
                   {
@@ -22515,7 +22515,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.151656095019977, 79.07488499650813],
+                      coordinates: [79.07488499650813, 21.151656095019977],
                     },
                   },
                   {
@@ -22529,7 +22529,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.13506403063174, 79.07629523883718],
+                      coordinates: [79.07629523883718, 21.13506403063174],
                     },
                   },
                   {
@@ -22543,7 +22543,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.158457240994647, 79.07973784673617],
+                      coordinates: [79.07973784673617, 21.158457240994647],
                     },
                   },
                   {
@@ -22557,7 +22557,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.199836160827587, 79.13942855233236],
+                      coordinates: [79.13942855233236, 21.199836160827587],
                     },
                   },
                   {
@@ -22571,7 +22571,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.15359981079793, 79.0496491473884],
+                      coordinates: [79.0496491473884, 21.15359981079793],
                     },
                   },
                   {
@@ -22585,7 +22585,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.150982814120297, 79.0669969946608],
+                      coordinates: [79.0669969946608, 21.150982814120297],
                     },
                   },
                   {
@@ -22599,7 +22599,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.15541452487169, 79.05582351000227],
+                      coordinates: [79.05582351000227, 21.15541452487169],
                     },
                   },
                   {
@@ -22613,7 +22613,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.14860525510872, 79.07029455233145],
+                      coordinates: [79.07029455233145, 21.14860525510872],
                     },
                   },
                   {
@@ -22627,7 +22627,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.15048117208927, 79.06523429650817],
+                      coordinates: [79.06523429650817, 21.15048117208927],
                     },
                   },
                   {
@@ -22641,7 +22641,7 @@
                     },
                     geometry: {
                       type: "Point",
-                      coordinates: [21.277068123610793, 78.79561635233372],
+                      coordinates: [78.79561635233372, 21.277068123610793],
                     },
                   },
                  

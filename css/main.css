@@ -6792,7 +6792,8 @@ print {
 }
 
 .media-right {
-    margin-left: 1rem
+    margin-left: 1rem;
+    margin-top: 35px;
 }
 
 .media-content {
@@ -17204,7 +17205,11 @@ print {
 }
 
 .control.has-icon .input {
-    padding-left: 44px
+    padding-left: 44px;
+}
+.control.has-icon .input .sidedata {
+    padding-left: 18px;
+    margin-top: 12px;
 }
 
 .control.has-icon .input:focus+.form-icon {

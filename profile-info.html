@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ListKit</title>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MHNTCVZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHNTCVZ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="pageloader" class="pageloader is-left-to-right"></div>
+    <div id="infraloader" class="infraloader is-active"></div>
+
+    <main>
+        <!-- Header Start -->
+        <main>
+            <!--Docked main Navbar-->
+            <div class="main-navigation-light is-default" x-data="initNavbarLight()" x-on:scroll.window="scroll()"
+                x-on:mouseleave="megamenuOpened = false" x-bind:class="{
+        'is-scrolled': scrolled,
+        '': !scrolled,
+        'is-solid': megamenuOpened,
+        '': !megamenuOpened,
+    }">
+                <div class="main-navigation--menu">
+                    <div class="container">
+                        <div class="main-navigation--menu-inner">
+                            <div class="left">
+                                <a href="/" class="brand">
+                                    <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
+                                    <img class="dark-logo" src="img/logo/logo.svg" alt="" />
+                                </a>
+                            </div>
+
+
+
+                            <div class="right">
+                                <button class="navigation-link is-icon mx-4 modal-trigger" data-modal="languages-modal">
+                                    <i data-feather="globe"></i>
+                                </button>
+                                <div class="account-drop">
+                                    <button x-on:click="openDrop('account-drop')"
+                                        x-on:click.away="closeDrop('account-drop')">
+                                        <span class="image is-32x32">
+                                            <img x-show="$store.app.isLoggedIn === false" class="is-rounded"
+                                                src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                data-demo-src="img/photo/avatar/placeholder.png" alt="" />
+                                            <img x-show="$store.app.isLoggedIn === true" class="is-rounded"
+                                                src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                data-demo-src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                alt="" />
+                                        </span>
+                                    </button>
+                                    <div x-show.transition="accountDropOpened" class="drop-menu">
+                                        <div class="drop-menu-inner">
+                                            <a href="login-page.html" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item is-heavy">Sign
+                                                In</a>
+                                            <a href="register-page.html" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item">Register</a>
+                                            <a href="" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item">Location</a>
+                                            <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Account</a>
+                                            <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Settings</a>
+                                            <a href="account-schedule.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Schedule</a>
+                                            <hr />
+                                            <!-- <a href="host.html" class="drop-menu-item">Host Event</a> -->
+                                            <a href="" class="drop-menu-item">List Spaces</a>
+                                            <a href="" class="drop-menu-item">Explore Spaces</a>
+                                            <a href="how.html" class="drop-menu-item">Help</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="megamenu" x-bind:class="{
+      'is-active': megamenuOpened,
+      '': !megamenuOpened,
+    }">
+                    <!--Megamenu 1-->
+                    <div x-show="openedMegamenu === 'megamenu-1'" class="megamenu-inner">
+                        <button class="close-button" x-on:click="megamenuOpened = !megamenuOpened">
+                            <i data-feather="arrow-left"></i>
+                        </button>
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column is-4">
+                                    <div class="megamenu-block">
+                                        <div class="media">
+                                            <div class="media-left text-primary">
+                                                <span class="fas fa-2x fa-cocktail"></span>
+                                            </div>
+                                            <div class="media-content">
+                                                <h3 class="text-rainbow">Social Events</h3>
+                                                <p>
+                                                    Explore a wide variety of events and services provided by
+                                                    members of our huge community.
+                                                </p>
+                                                <a href="events.html" class="arrow-link">
+                                                    <span>Explore scheduled events</span>
+                                                    <i data-feather="arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-4">
+                                    <div class="megamenu-block has-margin">
+                                        <h4 class="text-rainbow">Trending now</h4>
+                                        <ul>
+                                            <li>
+                                                <a href="events.html" class="arrow-link">
+                                                    <span>Reading groups</span>
+                                                    <i data-feather="arrow-right"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="events.html" class="arrow-link">
+                                                    <span>Shopping meetups</span>
+                                                    <i data-feather="arrow-right"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="events.html" class="arrow-link">
+                                                    <span>Gaming parties</span>
+                                                    <i data-feather="arrow-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="column is-4">
+                                    <div class="megamenu-block is-left-bordered">
+                                        <div class="media">
+                                            <div class="media-content">
+                                                <h3 class="text-rainbow">Schedule an event</h3>
+                                                <p>
+                                                    Learn how you can start hosting events and offering services
+                                                    on our platform.
+                                                </p>
+                                                <a href="host.html" class="arrow-link">
+                                                    <span>Become a Host</span>
+                                                    <i data-feather="arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="progress-wrap" x-data="initBackToTop()" x-init="setup()" x-on:scroll.window="scroll()" x-bind:class="{
+        'active-progress': scrolled,
+        '': !scrolled,
+        }" x-on:click="scrollTop()">
+            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+            </svg>
+        </div>
+
+        <div id="languages-modal" class="modal">
+            <div class="modal-background modal-dismiss"></div>
+            <div class="modal-content">
+                <!--Modal card-->
+                <div class="card">
+                    <header class="card-header">
+                        <div class="card-header-title">
+                            <span>Select a language</span>
+                        </div>
+                        <button class="modal-dismiss">
+                            <span class="icon">
+                                <i data-feather="x"></i>
+                            </span>
+                        </button>
+                    </header>
+                    <div class="card-content">
+                        <div class="check-cards-group">
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" checked />
+                                <div class="check-card-inner">
+                                    <img src="https://listkit.cssninja.io/img/icons/flags/united-states-of-america.svg"
+                                        data-demo-src="img/icons/flags/united-states-of-america.svg" alt="" />
+                                    <div class="meta">
+                                        <span>English [US]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://listkit.cssninja.io/img/icons/flags/england.svg"
+                                        data-demo-src="img/icons/flags/england.svg" alt="" />
+                                    <div class="meta">
+                                        <span>English [UK]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+                                        data-demo-src="img/icons/flags/france.svg" alt="" />
+                                    <div class="meta">
+                                        <span>Hindi</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+                                        data-demo-src="img/icons/flags/germany.svg" alt="" />
+                                    <div class="meta">
+                                        <span>Marathi</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header End -->
+
+        <div class="section app-section">
+            <div class="container">
+                <nav class="breadcrumb account-breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        <li><a href="account-main.html">Account</a></li>
+                        <li class="is-active">
+                            <a href="account-personal.html" aria-current="page">Personal Info</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="account-header">
+                    <img class="header-avatar" src="https://listkit.cssninja.io/img/photo/avatar/19.jpg"
+                        data-demo-src="img/photo/avatar/19.jpg" alt="" />
+                    <div class="header-meta">
+                        <h2 class="title is-3 is-bold">Personal Info</h2>
+                        <h4 class="subtitle is-5 stressed-1">
+                            Edit and manage your personal details
+                        </h4>
+                    </div>
+                </div>
+
+                <div class="account-layout py-6">
+                    <div class="columns b-flex-tablet-p">
+                        <div class="column is-7">
+                            <div class="mb-4">
+                                <h2 class="title is-5 is-bold">General</h2>
+                                <h4 class="subtitle is-6">
+                                    Your general information and details
+                                </h4>
+                            </div>
+
+                            <!--Setting block-->
+                            <form ng-app="myApp" ng-controller="validateCtrl" name="myForm" novalidate>
+                                <div class="media">
+                                    <div class="media-content">
+                                        <div class="control has-icon">
+                                            <label class="is-block">Full Name</label>
+                                            <input style="margin-top: 12px;  padding-left: 18px;" class="input sidedata" type="text" placeholder="Enter Full Name" name="fName"
+                                                ng-model="fName" required />
+                                            <span style="color:red"
+                                                ng-show="myForm.fName.$dirty && myForm.fName.$invalid">
+                                                <span style="color:red" ng-show="myForm.fName.$error.required">Name
+                                                    is required.</span>
+                                                <span style="color:red" ng-show="myForm.fName.$error.fName">Invalid
+                                                    Name</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <a class="default-link">Edit</a>
+                                    </div>
+                                </div>
+                                <!--Setting block-->
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="control has-icon">
+                                            <label class="is-block">Gender</label>
+                                            <input style="margin-top: 12px;  padding-left: 18px;" class="input" type="text" placeholder="Enter Gender" name="gen"
+                                                ng-model="gen" required />
+                                            <span style="color:red" ng-show="myForm.gen.$dirty && myForm.gen.$invalid">
+                                                <span style="color:red" ng-show="myForm.gen.$error.required">Gender
+                                                    is required.</span>
+                                                <span style="color:red" ng-show="myForm.gen.$error.gen">Invalid
+                                                    Gender</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <a class="default-link">Edit</a>
+                                    </div>
+                                </article>
+                                <!--Setting block-->
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="control has-icon">
+                                            <label class="is-block">Email Address</label>
+                                            <input style="margin-top: 12px;  padding-left: 18px;" class="input" type="email" placeholder="Enter Email" name="email"
+                                                ng-model="email" required />
+                                            <span style="color:red"
+                                                ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                                                <span style="color:red" ng-show="myForm.email.$error.required">Email
+                                                    is required.</span>
+                                                <span style="color:red" ng-show="myForm.email.$error.email">Invalid
+                                                    Email</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <a class="default-link">Edit</a>
+                                    </div>
+                                </article>
+                                <!--Setting block-->
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="control has-icon">
+                                            <label class="is-block">Birthdate</label>
+                                            <input style="margin-top: 12px;  padding-left: 18px;" class="input" type="text" placeholder="Enter Birthdate" name="dob"
+                                                ng-model="dob" required />
+                                            <span style="color:red" ng-show="myForm.dob.$dirty && myForm.dob.$invalid">
+                                                <span style="color:red" ng-show="myForm.dob.$error.required">Birthdate
+                                                    is required.</span>
+                                                <span style="color:red" ng-show="myForm.dob.$error.dob">Invalid
+                                                    Birthdate</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <a class="default-link">Edit</a>
+                                    </div>
+                                </article>
+
+
+
+                                <div class="mt-6 mb-4">
+                                    <h2 class="title is-5 is-bold">Additional Info</h2>
+                                    <h4 class="subtitle is-6">
+                                        some additional details that we need
+                                    </h4>
+                                </div>
+
+                                <!--Setting block-->
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="control has-icon">
+                                            <label class="is-block">Phone Number</label>
+                                            <input style="margin-top: 12px;  padding-left: 18px;" class="input" type="text" placeholder="Enter Phone Number"
+                                                name="mobile" ng-model="mobile" required />
+                                            <span style="color:red"
+                                                ng-show="myForm.mobile.$dirty && myForm.mobile.$invalid">
+                                                <span style="color:red" ng-show="myForm.mobile.$error.required">Phone
+                                                    Number
+                                                    is
+                                                    required.</span>
+                                                <span style="color:red" ng-show="myForm.mobile.$error.mobile">Invalid
+                                                    Phone Number</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <a class="default-link">Edit</a>
+                                    </div>
+                                </article>
+                                <!--Setting block-->
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="control has-icon">
+                                            <label class="is-block">ID Document</label>
+                                            <input style="margin-top: 12px;  padding-left: 18px;" class="input" type="text" placeholder="Enter ID Document"
+                                                name="docid" ng-model="docid" required />
+                                            <span style="color:red"
+                                                ng-show="myForm.docid.$dirty && myForm.docid.$invalid">
+                                                <span style="color:red" ng-show="myForm.docid.$error.required">ID
+                                                    Document
+                                                    is
+                                                    required.</span>
+                                                <span style="color:red" ng-show="myForm.docid.$error.docid">Invalid
+                                                    ID Document</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <a class="default-link">Edit</a>
+                                    </div>
+                                </article>
+                                <!--Setting block-->
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="control has-icon">
+                                            <label class="is-block">Location</label>
+                                            <input style="margin-top: 12px;  padding-left: 18px;" class="input" type="text" placeholder="Enter Location"
+                                                name="location" ng-model="location" required />
+                                            <span style="color:red"
+                                                ng-show="myForm.location.$dirty && myForm.location.$invalid">
+                                                <span style="color:red"
+                                                    ng-show="myForm.location.$error.required">Location
+                                                    is
+                                                    required.</span>
+                                                <span style="color:red"
+                                                    ng-show="myForm.location.$error.location">Invalid
+                                                    Location</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <a class="default-link">Edit</a>
+                                    </div>
+                                </article>
+                                <!--Setting block-->
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="control has-icon">
+                                            <label class="is-block">Emergency</label>
+                                            <input style="margin-top: 12px;  padding-left: 18px;" class="input" type="text" placeholder="Enter Emergency"
+                                                name="emergency" ng-model="emergency" required />
+                                            <span style="color:red"
+                                                ng-show="myForm.emergency.$dirty && myForm.emergency.$invalid">
+                                                <span style="color:red"
+                                                    ng-show="myForm.emergency.$error.required">Emergency
+                                                    is
+                                                    required.</span>
+                                                <span style="color:red"
+                                                    ng-show="myForm.emergency.$error.emergency">Invalid
+                                                    Emergency</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <a class="default-link">Edit</a>
+                                    </div>
+                                </article>
+                            </form>
+
+                        </div>
+                        <div class="column is-4 is-offset-1">
+                            <!--Categories-->
+                            <div class="account-categories">
+                                <!--Category-->
+                                <a href="profile-info.html" class="card mb-5">
+                                    <div class="card-content">
+                                        <div class="svg-icon">
+                                            <img class="mb-2" src="img/icons/custom/shield.svg" alt="" />
+                                        </div>
+                                        <h3 class="title is-6 has-space">
+                                            <span class="icon-text">
+                                                <span>Account & Security</span>
+                                                <span class="icon">
+                                                    <i data-feather="chevron-right"></i>
+                                                </span>
+                                            </span>
+                                        </h3>
+                                        <p class="stressed-1 is-md">
+                                            Update your password and secure your account. You can also
+                                            enable two-factor authentication.
+                                        </p>
+                                    </div>
+                                </a>
+                                <!--Category-->
+                                <a href="profile-info.html" class="card">
+                                    <div class="card-content">
+                                        <div class="svg-icon">
+                                            <img class="mb-2" src="img/icons/custom/credit-card.svg" alt="" />
+                                        </div>
+                                        <h3 class="title is-6 has-space">
+                                            <span class="icon-text">
+                                                <span>Payments</span>
+                                                <span class="icon">
+                                                    <i data-feather="chevron-right"></i>
+                                                </span>
+                                            </span>
+                                        </h3>
+                                        <p class="stressed-1 is-md">
+                                            View your payments and your transactions. Also view coupon
+                                            codes, gift cards and tax reports.
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flat-list py-6">
+                    <!--Title-->
+                    <h4 class="title is-5">Search History</h4>
+
+                    <!--List-->
+                    <div class="flat-list-inner">
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="4">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://images.trvl-media.com/lodging/9000000/8440000/8439200/8439181/25ebe32c.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+                                data-demo-background="img/photo/content/events/carousel/37.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>Sadar, Nagpur, Maharashtra 440001</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>Tuli International</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>2 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>3 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 beds</span>
+                                        <span class="px-1">·</span>
+                                        <span>1 bathroom</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$130/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,93</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-head">
+                <div class="head-text">
+                    <h3>Have any questions?</h3>
+                    <p>Our support team answers your questions</p>
+                </div>
+                <div class="head-action">
+                    <div class="buttons">
+                        <a href="help-center.html" class="button is-primary raised action-button is-raised-hover">Help
+                            Center</a>
+                        <a href="help-center.html" target="_blank" class="button chat-button">Chat with us</a>
+                    </div>
+                </div>
+            </div>
+            <div class="columns footer-body">
+                <!-- Column -->
+                <div class="column is-4">
+                    <div class="p-t-10 p-b-10">
+                        <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
+                        <div class="footer-description p-t-10 p-b-10">
+                            Listkit is built for developers and designers. Its modular approach
+                            lets you create awesome webapps with incredible layouts and
+                            elements.
+                        </div>
+                    </div>
+                    <div>
+                        <span class="moto">Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
+                            Ninja.</span>
+                    </div>
+                </div>
+                <!-- Column -->
+                <div class="column is-7 is-offset-1">
+                    <div class="columns is-flex-tablet-p">
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Services</li>
+
+                                <li class="column-item"><a href="events.html">List Of Space</a></li>
+                                <li class="column-item"><a href="flats.html">Party Space</a></li>
+                                <li class="column-item"><a href="trips.html">Trips</a></li>
+                                <li class="column-item">
+                                    <a href="corporate.html">Corporate</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Links</li>
+                                <li class="column-item"><a href="signup.html">Register</a></li>
+                                <li class="column-item"><a href="login.html">Sign In</a></li>
+                                <li class="column-item"><a href="blog.html">News</a></li>
+                                <li class="column-item"><a href="careers.html">Careers</a></li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Help</li>
+                                <li class="column-item"><a href="host.html">Host an Venue</a></li>
+                                <li class="column-item"><a href="how.html">How it works</a></li>
+                                <li class="column-item"><a href="support.html">Support</a></li>
+                                <li class="column-item">
+                                    <a href="help-center.html">Help Center</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Legal</li>
+
+                                <li class="column-item"><a href="#">Terms of Service</a></li>
+                                <li class="column-item"><a href="#">Privacy policy</a></li>
+                                <li class="column-item"><a href="contact.html">Contact</a></li>
+                                <li class="column-item">
+                                    <a class="modal-trigger" data-modal="languages-modal">Language: EN</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>
+                    &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
+                    Rights Reserved.
+                </p>
+                <div>
+                    <div class="social-links">
+                        <a href="#"><i data-feather="facebook"></i></a>
+                        <a href="#"><i data-feather="twitter"></i></a>
+                        <a href="#"><i data-feather="linkedin"></i></a>
+                        <a href="#"><i data-feather="instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="./js/bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('validateCtrl', function ($scope) {
+            $scope.fName = 'Rahul Parate';
+            $scope.gen = 'Male';
+            $scope.email = 'rahul24@gmail.com';
+            $scope.dob = 'October 12, 1995';
+            $scope.mobile = '(+91)  9965235841';
+            $scope.docid = ' Successfully uploaded';
+            $scope.location = 'Mahal Nagpur, Maharashtra';
+            $scope.emergency = 'Your emergency infos';
+
+        });
+    </script>
+</body>
+
+</html>
