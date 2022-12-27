@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ListKit</title>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MHNTCVZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHNTCVZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="pageloader" class="pageloader is-left-to-right"></div>
+    <div id="infraloader" class="infraloader is-active"></div>
+
+    <main>
+<div class="auth-wrapper is-single">
+  <!--Fake navigation-->
+  <div class="auth-nav">
+    <div class="left"></div>
+    <div class="center">
+      <a href="/" class="header-item">
+        <img src="img/logo/logo.svg" alt="" />
+      </a>
+    </div>
+    <div class="right"></div>
+  </div>
+
+  <!--Single Centered Form-->
+  <div class="single-form-wrap">
+    <div class="inner-wrap">
+      <!--Form Title-->
+      <div class="auth-head">
+        <h2>Welcome Back.</h2>
+        <p>Please sign in to your account</p>
+        <a href="/signup.html">I do not have an account yet </a>
+      </div>
+
+      <!--Form-->
+      <div class="form-card" x-data="initLogin()">
+        <form>
+          <div id="signin-form" class="login-form">
+            <!-- Input -->
+            <div class="field">
+              <div class="control has-icon">
+                <input class="input" type="text" placeholder="Username" />
+                <span class="form-icon">
+                  <i data-feather="user"></i>
+                </span>
+              </div>
+            </div>
+            <!-- Input -->
+            <div class="field">
+              <div class="control has-icon">
+                <input class="input" type="password" placeholder="Password" />
+                <span class="form-icon">
+                  <i data-feather="lock"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="setting-item">
+              <label class="form-switch is-primary">
+                <input
+                  type="checkbox"
+                  class="is-switch"
+                  id="busy-mode-toggle"
+                />
+                <i></i>
+              </label>
+              <div class="setting-meta">
+                <span>Remember Me</span>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="control login">
+              <button
+                type="button"
+                class="
+                  button
+                  h-button
+                  is-primary is-bold is-fullwidth is-raised
+                "
+                x-bind:class="{
+                    'is-loading': isLoading,
+                }"
+                x-on:click="login()"
+              >
+                Sign In
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="forgot-link has-text-centered">
+        <a>Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+    <div
+      class="progress-wrap"
+      x-data="initBackToTop()"
+      x-init="setup()"
+      x-on:scroll.window="scroll()"
+      x-bind:class="{
+        'active-progress': scrolled,
+        '': !scrolled,
+        }"
+      x-on:click="scrollTop()"
+    >
+      <svg
+        class="progress-circle svg-content"
+        width="100%"
+        height="100%"
+        viewBox="-1 -1 102 102"
+      >
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="./js/bundle.js"></script>
+  </body>
+</html>

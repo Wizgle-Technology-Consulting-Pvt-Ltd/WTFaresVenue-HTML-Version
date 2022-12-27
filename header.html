@@ -37,7 +37,7 @@
   <div id="pageloader" class="pageloader is-left-to-right"></div>
   <div id="infraloader" class="infraloader is-active"></div>
 
-<!-- Header Start -->
+  <!-- Header Start -->
   <main>
     <!--Docked main Navbar-->
     <div class="main-navigation is-scrolled" x-data="initNavbar()" x-on:click.away="foldSearch()" x-bind:class="{
@@ -55,15 +55,6 @@
             </div>
 
             <div class="center">
-              <div class="navigation-link">
-                <a>Events</a>
-              </div>
-              <div class="navigation-link">
-                <a>Trips</a>
-              </div>
-              <div class="navigation-link">
-                <a>Flats</a>
-              </div>
               <div class="search-fold" x-on:click="expandSearch()">
                 <span>Search events near you</span>
                 <button class="mini-search-button">
@@ -73,9 +64,6 @@
             </div>
 
             <div class="right">
-              <div class="navigation-link is-host">
-                <a href="host.html">Host Event</a>
-              </div>
               <button class="navigation-link is-icon mx-4 modal-trigger" data-modal="languages-modal">
                 <i data-feather="globe"></i>
               </button>
@@ -83,7 +71,8 @@
                 <button x-on:click="openDrop('account-drop')" x-on:click.away="closeDrop('account-drop')">
                   <span class="image is-32x32">
                     <img x-show="$store.app.isLoggedIn === false" class="is-rounded"
-                      src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png" data-demo-src="img/photo/avatar/placeholder.png" alt="" />
+                      src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                      data-demo-src="img/photo/avatar/placeholder.png" alt="" />
                     <img x-show="$store.app.isLoggedIn === true" class="is-rounded"
                       src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
                       data-demo-src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png" alt="" />
@@ -91,9 +80,13 @@
                 </button>
                 <div x-show.transition="accountDropOpened" class="drop-menu">
                   <div class="drop-menu-inner">
-                    <a href="login.html" x-show="$store.app.isLoggedIn === false" class="drop-menu-item is-heavy">Sign
+                    <a href="login-page.html" x-show="$store.app.isLoggedIn === false"
+                      class="drop-menu-item is-heavy">Sign
                       In</a>
-                    <a href="signup.html" x-show="$store.app.isLoggedIn === false" class="drop-menu-item">Register</a>
+                    <a href="register-page.html" x-show="$store.app.isLoggedIn === false"
+                      class="drop-menu-item">Register</a>
+                      <a href="" x-show="$store.app.isLoggedIn === false"
+                      class="drop-menu-item">Location</a>
                     <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
                       class="drop-menu-item">Account</a>
                     <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
@@ -101,10 +94,10 @@
                     <a href="account-schedule.html" x-show="$store.app.isLoggedIn === true"
                       class="drop-menu-item">Schedule</a>
                     <hr />
-                    <a href="host.html" class="drop-menu-item">Host Event</a>
-                    <a href="events.html" class="drop-menu-item">Explore Events</a>
+                    <!-- <a href="host.html" class="drop-menu-item">Host Event</a> -->
+                    <a href="" class="drop-menu-item">List Spaces</a>
+                    <a href="" class="drop-menu-item">Explore Spaces</a>
                     <a href="how.html" class="drop-menu-item">Help</a>
-                    <a x-show="$store.app.isLoggedIn === false" class="drop-menu-item" x-on:click="logout()">Logout</a>
                   </div>
                 </div>
               </div>
@@ -115,37 +108,124 @@
       <div class="main-navigation--search">
         <form id="search-form">
           <div class="search-bar" x-on:click.away="disableSearch()">
-            <div class="block-20" x-on:click="openDrop('start-date-drop'), $refs.startDateInput.focus()"
-              x-on:click.away="closeDrop('start-date-drop')" x-bind:class="{
-                        'is-active': startDateDropOpened,
-                        '': !startDateDropOpened
-                    }">
+            <div
+              class="block-30"
+              x-on:click.stop="openDrop('location-drop'), $refs.locationInput.focus()"
+              x-on:click.away="closeDrop('location-drop')"
+              x-bind:class="{
+                            'is-active': locationDropOpened,
+                            '': !locationDropOpened
+                        }"
+            >
+              <div class="field">
+                <label>Location</label>
+                <div class="control">
+                  <input
+                    x-ref="locationInput"
+                    required="required"
+                    placeholder="Where are you?"
+                  />
+                  <button type="reset" class="clear-value">
+                    <i data-feather="x"></i>
+                  </button>
+                </div>
+              </div>
+              <div x-show.transition="locationDropOpened" class="location-dropdown">
+                <div class="location-dropdown-inner">
+                  <a class="near-link">
+                    <div class="near-icon">
+                      <i data-feather="map-pin"></i>
+                    </div>
+                    <span>Explore Venue near you</span>
+                  </a>
+                  <div class="near-tags">
+                    <h4>Places near you</h4>
+                    <div class="tags">
+                      <span class="tag">Nagpur</span>
+                      <span class="tag">Mumbai</span>
+                      <span class="tag">Pune</span>
+                      <span class="tag">Akola</span>
+                      <span class="tag">Nashik</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="block-20"
+              x-on:click="openDrop('end-date-drop'), $refs.endDateInput.focus()"
+              x-on:click.away="closeDrop('end-date-drop')"
+              x-bind:class="{
+                            'is-active': endDateDropOpened,
+                            '': !endDateDropOpened
+                        }"
+            >
+              <div class="field">
+                <label>Guests</label>
+                <div class="control">
+                  <input
+                    x-ref="endDateInput"
+                    required="required"
+                    class="search-datepicker-end"
+                    placeholder="Number of People"
+                  />
+                  <button
+                    x-on:click="$refs.endDateInput.value = ''"
+                    type="reset"
+                    class="clear-value"
+                  >
+                    <i data-feather="x"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="block-20"
+              x-on:click="openDrop('start-date-drop'), $refs.startDateInput.focus()"
+              x-on:click.away="closeDrop('start-date-drop')"
+              x-bind:class="{
+                            'is-active': startDateDropOpened,
+                            '': !startDateDropOpened
+                        }"
+            >
               <div class="field">
                 <label>Starting</label>
                 <div class="control">
-                  <input x-ref="startDateInput" required="required" class="search-datepicker-start"
-                    placeholder="Select a date" />
+                  <input
+                    x-ref="startDateInput"
+                    required="required"
+                    class="search-datepicker-start"
+                    placeholder="Select a date"
+                  />
                   <button type="reset" class="clear-value">
                     <i data-feather="x"></i>
                   </button>
                 </div>
               </div>
             </div>
-            <div class="block-30" x-on:click="openDrop('type-drop'), $refs.typeInput.focus()"
-              x-on:click.away="closeDrop('type-drop')" x-bind:class="{
-                        'is-active': typeDropOpened,
-                        '': !typeDropOpened
-                    }">
+            <div
+              class="block-30"
+              x-on:click="openDrop('type-drop'), $refs.typeInput.focus()"
+              x-on:click.away="closeDrop('type-drop')"
+              x-bind:class="{
+                            'is-active': typeDropOpened,
+                            '': !typeDropOpened
+                        }"
+            >
               <div class="field has-search-button">
-                <label>Audience</label>
+                <label>Venue Type</label>
                 <div class="control">
-                  <input x-ref="typeInput" required="required" placeholder="Pick a type" />
+                  <input
+                    x-ref="typeInput"
+                    required="required"
+                    placeholder="Pick a type"
+                  />
                   <button type="reset" class="clear-value">
                     <i data-feather="x"></i>
                   </button>
                 </div>
               </div>
-
+    
               <div x-show.transition="typeDropOpened" class="type-dropdown">
                 <div class="type-dropdown-inner">
                   <div class="type-block">
@@ -155,7 +235,12 @@
                     </div>
                     <div class="action">
                       <label class="form-switch is-primary">
-                        <input type="radio" name="search_type_radio" class="is-switch" checked />
+                        <input
+                          type="radio"
+                          name="search_type_radio"
+                          class="is-switch"
+                          checked
+                        />
                         <i></i>
                       </label>
                     </div>
@@ -167,7 +252,11 @@
                     </div>
                     <div class="action">
                       <label class="form-switch is-primary">
-                        <input type="radio" name="search_type_radio" class="is-switch" />
+                        <input
+                          type="radio"
+                          name="search_type_radio"
+                          class="is-switch"
+                        />
                         <i></i>
                       </label>
                     </div>
@@ -179,55 +268,25 @@
                     </div>
                     <div class="action">
                       <label class="form-switch is-primary">
-                        <input type="radio" name="search_type_radio" class="is-switch" />
+                        <input
+                          type="radio"
+                          name="search_type_radio"
+                          class="is-switch"
+                        />
                         <i></i>
                       </label>
                     </div>
                   </div>
                 </div>
               </div>
-
-
-            </div>
-            <div class="block-30" x-on:click.stop="openDrop('location-drop'), $refs.locationInput.focus()"
-              x-on:click.away="closeDrop('location-drop')" x-bind:class="{
-                      'is-active': locationDropOpened,
-                      '': !locationDropOpened
-                  }">
-              <div class="field">
-                <label>Location</label>
-                <div class="control">
-                  <input x-ref="locationInput" required="required" placeholder="Where are you?" />
-                  <button type="reset" class="clear-value">
-                    <i data-feather="x"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div x-show.transition="locationDropOpened" class="location-dropdown">
-                <div class="location-dropdown-inner">
-                  <a class="near-link">
-                    <div class="near-icon">
-                      <i data-feather="map-pin"></i>
-                    </div>
-                    <span>Explore events near you</span>
-                  </a>
-                  <div class="near-tags">
-                    <h4>Places near you</h4>
-                    <div class="tags">
-                      <span class="tag">Los Angeles</span>
-                      <span class="tag">San Francisco</span>
-                      <span class="tag">San Diego</span>
-                      <span class="tag">Orange County</span>
-                      <span class="tag">San Juan</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button style="margin-left: 40px ;" type="button" class="search-button" x-bind:class="{
-                            'is-expanded': searchActive,
-                            '': !searchActive
-                        }">
+              <button
+                type="button"
+                class="search-button"
+                x-bind:class="{
+                                'is-expanded': searchActive,
+                                '': !searchActive
+                            }"
+              >
                 <i data-feather="search"></i>
                 <span> Search</span>
               </button>
@@ -315,8 +374,8 @@
       </div>
     </div>
   </div>
-  
-<!-- Header End -->
+
+  <!-- Header End -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
   <script src="./js/bundle.js"></script>
 </body>
