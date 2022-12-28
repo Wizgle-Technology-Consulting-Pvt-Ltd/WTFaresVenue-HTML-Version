@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ListKit</title>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MHNTCVZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHNTCVZ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="pageloader" class="pageloader is-left-to-right"></div>
+    <div id="infraloader" class="infraloader is-active"></div>
+
+    <main>
+        <!-- Header Start -->
+        <div class="main-navigation-light is-default" x-data="initNavbarLight()" x-on:scroll.window="scroll()"
+            x-on:mouseleave="megamenuOpened = false" x-bind:class="{
+        'is-scrolled': scrolled,
+        '': !scrolled,
+        'is-solid': megamenuOpened,
+        '': !megamenuOpened,
+    }">
+            <div class="main-navigation--menu">
+                <div class="container">
+                    <div class="main-navigation--menu-inner">
+                        <div class="left">
+                            <a href="/" class="brand">
+                                <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
+                                <img class="dark-logo" src="img/logo/logo.svg" alt="" />
+                            </a>
+                        </div>
+
+
+
+                        <div class="right">
+                            <button class="navigation-link is-icon mx-4 modal-trigger" data-modal="languages-modal">
+                                <i data-feather="globe"></i>
+                            </button>
+                            <div class="account-drop">
+                                <button x-on:click="openDrop('account-drop')"
+                                    x-on:click.away="closeDrop('account-drop')">
+                                    <span class="image is-32x32">
+                                        <img x-show="$store.app.isLoggedIn === false" class="is-rounded"
+                                            src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                            data-demo-src="img/photo/avatar/placeholder.png" alt="" />
+                                        <img x-show="$store.app.isLoggedIn === true" class="is-rounded"
+                                            src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                            data-demo-src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                            alt="" />
+                                    </span>
+                                </button>
+                                <div x-show.transition="accountDropOpened" class="drop-menu">
+                                    <div class="drop-menu-inner">
+                                        <a href="login-page.html" x-show="$store.app.isLoggedIn === false"
+                                            class="drop-menu-item is-heavy">Sign
+                                            In</a>
+                                        <a href="register-page.html" x-show="$store.app.isLoggedIn === false"
+                                            class="drop-menu-item">Register</a>
+                                        <a href="" x-show="$store.app.isLoggedIn === false"
+                                            class="drop-menu-item">Location</a>
+                                        <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                                            class="drop-menu-item">Account</a>
+                                        <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                                            class="drop-menu-item">Settings</a>
+                                        <a href="account-schedule.html" x-show="$store.app.isLoggedIn === true"
+                                            class="drop-menu-item">Schedule</a>
+                                        <hr />
+                                        <!-- <a href="host.html" class="drop-menu-item">Host Event</a> -->
+                                        <a href="" class="drop-menu-item">List Spaces</a>
+                                        <a href="" class="drop-menu-item">Explore Spaces</a>
+                                        <a href="how.html" class="drop-menu-item">Help</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="megamenu" x-bind:class="{
+      'is-active': megamenuOpened,
+      '': !megamenuOpened,
+    }">
+            </div>
+        </div>
+
+        <div class="progress-wrap" x-data="initBackToTop()" x-init="setup()" x-on:scroll.window="scroll()" x-bind:class="{
+    'active-progress': scrolled,
+    '': !scrolled,
+    }" x-on:click="scrollTop()">
+            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+            </svg>
+        </div>
+
+        <div id="languages-modal" class="modal">
+            <div class="modal-background modal-dismiss"></div>
+            <div class="modal-content">
+                <!--Modal card-->
+                <div class="card">
+                    <header class="card-header">
+                        <div class="card-header-title">
+                            <span>Select a language</span>
+                        </div>
+                        <button class="modal-dismiss">
+                            <span class="icon">
+                                <i data-feather="x"></i>
+                            </span>
+                        </button>
+                    </header>
+                    <div class="card-content">
+                        <div class="check-cards-group">
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" checked />
+                                <div class="check-card-inner">
+                                    <img src="https://listkit.cssninja.io/img/icons/flags/united-states-of-america.svg"
+                                        data-demo-src="img/icons/flags/united-states-of-america.svg" alt="" />
+                                    <div class="meta">
+                                        <span>English [US]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://listkit.cssninja.io/img/icons/flags/england.svg"
+                                        data-demo-src="img/icons/flags/england.svg" alt="" />
+                                    <div class="meta">
+                                        <span>English [UK]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+                                        data-demo-src="img/icons/flags/france.svg" alt="" />
+                                    <div class="meta">
+                                        <span>Hindi</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+                                        data-demo-src="img/icons/flags/germany.svg" alt="" />
+                                    <div class="meta">
+                                        <span>Marathi</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header End -->
+
+        <!-- Body Start -->
+
+        <div class="hero is-big is-grey is-bold">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns is-vcentered faces-hero-wrapper">
+                        <div class="column is-12">
+                            <div class="hero-text has-text-centered">
+                                <h1 class="title is-1 is-bold">Let ready-to-book customers find your venue</h1>
+                                <p class="subtitle">
+                                    List your space with Tagvenue for free and increase your revenue up to 30%.
+                                </p>
+                                <div class="has-text-centered">
+                                    <a class="button is-primary mx-1 is-raised-hover">Explore</a>
+                                    <a class="button is-heavy mx-1">Learn More</a>
+                                </div>
+                            </div>
+                            <div class="pt-6">
+                                <div class="hero-faces">
+                                    <div class="face-column">
+                                        <div class="face-element"
+                                            data-background="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/74/1b/64/exterior.jpg?w=1100&h=-1&s=1"
+                                            data-demo-background="img/photo/content/grids/6.jpg"></div>
+                                    </div>
+                                    <div class="face-column">
+                                        <div class="face-element"
+                                            data-background="https://www.chattarpurfarms.com/imgs/7.jpg"
+                                            data-demo-background="img/photo/content/grids/1.jpg"></div>
+                                        <div class="face-element is-size-md"
+                                            data-background="https://lh3.googleusercontent.com/qGsJ4zM_k-aCzzICvEQKWF08uIlrrKupycDiSjAagG7Mpy8k-yKeqHTEZgysfpTO24TyAl1cDlZLWKhLfa9lmZJBZpA=w256-rw"
+                                            data-demo-background="img/photo/content/grids/7.jpg"></div>
+                                    </div>
+                                    <div class="face-column is-2x">
+                                        <div class="face-element"
+                                            data-background="https://b.zmtcdn.com/data/pictures/6/19574556/1cb1b77568453a40bedfc3b3396d3c63.jpg"
+                                            data-demo-background="img/photo/content/grids/4.jpg"></div>
+                                        <div class="hero-faces">
+                                            <div class="face-column is-4x">
+                                                <div class="face-element is-size-sm"
+                                                    data-background="https://images.trvl-media.com/lodging/9000000/8440000/8439200/8439181/25ebe32c.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+                                                    data-demo-background="img/photo/content/grids/10.jpg"></div>
+                                            </div>
+                                            <div class="face-column is-2x">
+                                                <div class="face-element is-size-xs"
+                                                    data-background="https://lh3.googleusercontent.com/Kg7jfajMYZEhaiZkAGwe9ydEYT4-etkXFE4SlinSLyU1CG48E8uepXRvTiYYozADe3SEojv_y8H7lov8-JzxjJCd=w746-h498-l95-e31"
+                                                    data-demo-background="img/photo/content/grids/11.png"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="face-column">
+                                        <div class="face-element is-size-md"
+                                            data-background="https://cf.bstatic.com/xdata/images/hotel/max1024x768/77773581.jpg?k=bc8e7a90ee54eaed5eb797ab768497213f38c73fdd44a4f1ca74a7a9499821a7&o=&hp=1"
+                                            data-demo-background="img/photo/content/grids/5.jpg"></div>
+                                        <div class="face-element"
+                                            data-background="https://image.wedmegood.com/resized/450X/uploads/member/1190281/1586556695_Screenshot_from_2020_04_11_03_34_39.png?crop=59,1,784,441"
+                                            data-demo-background="img/photo/content/grids/2.png"></div>
+                                    </div>
+                                    <div class="face-column">
+                                        <div class="face-element is-size-sm"
+                                            data-background="https://media.weddingz.in/images/244199509ab295605e93a2061263222c/cp-club-cp-club-lawn-1-lawn-2-25.jpg"
+                                            data-demo-background="img/photo/content/grids/9.jpg"></div>
+                                        <div class="face-element"
+                                            data-background="https://lh3.googleusercontent.com/p/AF1QipO-Md-yIXpxpONFD8mrg25TLHCh2IGfrX9C8yu4=s680-w680-h510"
+                                            data-demo-background="img/photo/content/grids/8.jpg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <div class="py-6">
+                    <div class="columns">
+                        <div class="column is-6 is-offset-3 has-text-centered">
+                            <div class="">
+                                <h4 class="title is-5 has-space">Why become a Host?</h4>
+                                <p class="stressed-1">
+                                    From private parties and corporate events to meetings and photo shoots - you decide
+                                    which bookings you want. Get your space in front of thousands of customers searching
+                                    for venues like yours.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="checked-features-grid py-6">
+                    <div class="columns is-flex-tablet-p">
+                        <!--Feature-->
+                        <div class="column is-4">
+                            <div class="check-wrap mb-4">
+                                <i data-feather="check"></i>
+                            </div>
+                            <h4 class="title is-5">Schedule your offers and events 100% Free</h4>
+                            <p class="stressed-1">
+                                Set your price, add photos and details, then your listing is ready to be seen by
+                                millions of people searching for space.
+                            </p>
+                        </div>
+                        <!--Feature-->
+                        <div class="column is-4">
+                            <div class="check-wrap mb-4">
+                                <i data-feather="check"></i>
+                            </div>
+                            <h4 class="title is-5">Define your Terms</h4>
+                            <p class="stressed-1">
+                                Message with guests and accept bookings through the Peerspace platform. Once you
+                                confirm, your guests will receive information on how to get there and details like your
+                                wifi code.
+                            </p>
+                        </div>
+                        <!--Feature-->
+                        <div class="column is-4">
+                            <div class="check-wrap mb-4">
+                                <i data-feather="check"></i>
+                            </div>
+                            <h4 class="title is-5">
+                                Start offering your service to interested people
+                            </h4>
+                            <p class="stressed-1">
+                                Guests are charged upfront through Peerspace’s secure payment system. Your payout is
+                                directly deposited after each booking, minus our 15% service fee.
+                            </p>
+                            <a class="underlink my-4">Start listing your services</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <!--Title-->
+                <div class="section-title has-text-centered pt-6">
+                    <div class="title-divider"></div>
+                    <h1 class="title is-2 is-bold is-narrow">Some serious warranties</h1>
+                </div>
+                <div class="pt-4 pb-6">
+                    <div class="columns">
+                        <div class="column is-6 is-offset-3 has-text-centered">
+                            <div class="">
+                                <p class="stressed-1">
+                                    We have them all - from local bars, to meeting rooms, industrial lofts and
+                                    prestigious locations. With thousands of venues globally, we celebrate diversity and
+                                    uniqueness.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Feature-->
+                <div class="py-6">
+                    <div class="columns is-vcentered is-flex-tablet-p"">
+        <div class=" column is-6 is-offset-1">
+                        <img src="img/illustrations/stories/8.svg" alt="" />
+                    </div>
+                    <div class="column is-4">
+                        <h4 class="title is-5 has-space">
+                            Offer courses, services or anything useful to the community
+                        </h4>
+                        <p class="stressed-1">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maximus
+                            dolor, inquit, brevis est. Comprehensum, quod cognitum non habet.
+                        </p>
+                        <a class="underlink my-4">Create a course</a>
+                    </div>
+                </div>
+            </div>
+            <!--Feature-->
+            <div class="py-6">
+                <div class="columns is-vcentered is-flex-tablet-p"">
+        <div class=" column is-4 is-offset-2">
+                    <h4 class="title is-5 has-space">
+                        Discover loads of physical activities
+                    </h4>
+                    <p class="stressed-1">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maximus
+                        dolor, inquit, brevis est. Comprehensum, quod cognitum non habet.
+                    </p>
+                    <a class="underlink my-4">Find Activities</a>
+                </div>
+                <div class="column is-6">
+                    <img src="img/illustrations/stories/11.svg" alt="" />
+                </div>
+            </div>
+        </div>
+        <!--Feature-->
+        <div class="py-6">
+            <div class="columns is-vcentered is-flex-tablet-p"">
+        <div class=" column is-6 is-offset-1">
+                <img src="img/illustrations/stories/10.svg" alt="" />
+            </div>
+            <div class="column is-4">
+                <h4 class="title is-5 has-space">
+                    Luxury trips & housing
+                </h4>
+                <p class="stressed-1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maximus
+                    dolor, inquit, brevis est. Comprehensum, quod cognitum non habet.
+                </p>
+                <a class="underlink my-4">Book a luxury trip</a>
+            </div>
+        </div>
+        </div>
+        <!--Feature-->
+        <div class="py-6">
+            <div class="columns is-vcentered is-flex-tablet-p"">
+        <div class=" column is-4 is-offset-2">
+                <h4 class="title is-5 has-space">
+                    Meet enthusiastic people with the same hobbies
+                </h4>
+                <p class="stressed-1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maximus
+                    dolor, inquit, brevis est. Comprehensum, quod cognitum non habet.
+                </p>
+                <a class="underlink my-4">Start listing your services</a>
+            </div>
+            <div class="column is-6">
+                <img src="img/illustrations/stories/12.svg" alt="" />
+            </div>
+        </div>
+        </div>
+        <div class="py-6">
+            <div class="buttons is-centered">
+                <a class="button is-primary is-raised-hover">Explore events</a>
+            </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                <!--Title-->
+                <div class="section-title has-text-centered py-6">
+                    <div class="title-divider"></div>
+                    <h1 class="title is-2 is-bold has-space">How to be a good host</h1>
+                    <p class="stressed-1 is-size-5 centered-subheading">
+                        We have them all - from local bars, to meeting rooms, industrial lofts and prestigious
+                        locations. With thousands of venues globally, we celebrate diversity and uniqueness.
+                    </p>
+                </div>
+                <div>
+                    <!--Featured Categories-->
+                    <div class="featured-categories is-x3">
+                        <!-- Header -->
+                        <div class="header">
+                            <h4>Learn more about services</h4>
+                            <div class="links">
+                                <a class="link is-active">More examples</a>
+                            </div>
+                        </div>
+
+                        <!-- Categories -->
+                        <div class="categories">
+                            <!-- Category -->
+                            <a class="category">
+                                <div class="category-thumb">
+                                    <img src="https://listkit.cssninja.io/img/photo/content/14.jpg"
+                                        data-demo-src="img/photo/content/14.jpg" alt="" />
+                                </div>
+                                <div class="category-foot">
+                                    <span>
+                                        <span class="is-hidden-tablet-p">Starting tricks</span>
+                                    </span>
+                                    <span>Services and Categories</span>
+                                </div>
+                            </a>
+                            <!-- Category -->
+                            <a class="category">
+                                <div class="category-thumb">
+                                    <img src="https://listkit.cssninja.io/img/photo/content/9.jpg"
+                                        data-demo-src="img/photo/content/9.jpg" alt="" />
+                                </div>
+                                <div class="category-foot">
+                                    <span>
+                                        <span class="is-hidden-tablet-p">Starting tricks</span>
+                                    </span>
+                                    <span>Rules and Interactions</span>
+                                </div>
+                            </a>
+                            <!-- Category -->
+                            <a class="category">
+                                <div class="category-thumb">
+                                    <img src="https://listkit.cssninja.io/img/photo/content/15.jpg"
+                                        data-demo-src="img/photo/content/15.jpg" alt="" />
+                                </div>
+                                <div class="category-foot">
+                                    <span>
+                                        <span class="is-hidden-tablet-p">Starting tricks</span>
+                                    </span>
+                                    <span>Reccurring Payments</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="py-6">
+                            <div class="buttons is-centered">
+                                <a class="button is-primary is-raised-hover">Create a New Service</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section is-light-grey">
+            <div class="container">
+                <!--Title-->
+                <div class="section-title has-text-centered py-6">
+                    <div class="title-divider"></div>
+                    <h1 class="title is-2 is-bold has-space">We back you up</h1>
+                    <p class="stressed-1 is-size-5 centered-subheading">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maximus dolor,
+                        inquit, brevis est. Comprehensum, quod cognitum non habet? Si longus,
+                        levis dictata sunt.
+                    </p>
+                </div>
+
+                <div class="py-6">
+                    <div class="columns is-flex-tablet-p">
+                        <!--Feature-->
+                        <div class="column is-4">
+                            <div class="svg-icon is-md mb-4">
+                                <img class="mb-2" src="img/icons/custom/plant.svg" alt="">
+                            </div>
+                            <h4 class="title is-5">Schedule your offers and events 100% Free</h4>
+                            <p class="stressed-1">
+                                Set your price, add photos and details, then your listing is ready to be seen by
+                                millions of people searching for space.
+                            </p>
+                        </div>
+                        <!--Feature-->
+                        <div class="column is-4">
+                            <div class="svg-icon is-md mb-4">
+                                <img class="mb-2" src="img/icons/custom/laptop-mail.svg" alt="">
+                            </div>
+                            <h4 class="title is-5">Define your Terms</h4>
+                            <p class="stressed-1">
+                                Message with guests and accept bookings through the Peerspace platform. Once you
+                                confirm, your guests will receive information on how to get there and details like your
+                                wifi code.
+                            </p>
+                        </div>
+                        <!--Feature-->
+                        <div class="column is-4">
+                            <div class="svg-icon is-md mb-4">
+                                <img class="mb-2" src="img/icons/custom/plane-globe.svg" alt="">
+                            </div>
+                            <h4 class="title is-5">
+                                Start offering your service to interested people
+                            </h4>
+                            <p class="stressed-1">
+                                Guests are charged upfront through Peerspace’s secure payment system. Your payout is
+                                directly deposited after each booking, minus our 15% service fee.s
+                            </p>
+                            <a class="underlink my-4">Start listing your services</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--FAQ-->
+                <div class="py-6">
+                    <div class="columns is-vcentered">
+                        <div class="column is-5">
+                            <h4 class="title is-5 has-space">
+                                Start offering your service to interested people
+                            </h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maximus
+                                dolor, inquit, brevis est. Comprehensum, quod cognitum non habet? Si
+                                longus, levis dictata sunt. Non risu potius quam oratione eiciendum?
+                            </p>
+                            <a class="underlink my-4">See how you can start offering services</a>
+                        </div>
+                        <div class="column is-6 is-offset-1">
+                            <div class="accordion" x-data="initAccordion()" x-init="setup()">
+                                <div class="accordion-item">
+                                    <button id="accordion-button-1" aria-expanded="false">
+                                        <span class="accordion-title">What is Venue?</span><span class="icon"
+                                            aria-hidden="true"></span>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>
+                                            We're a venue hire marketplace that connects customers with venue managers,
+                                            making event booking easier for all. We're currently present in 6 countries,
+                                            with 5k+ venues listed and over 300k customers using the platform monthly.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button id="accordion-button-2" aria-expanded="false">
+                                        <span class="accordion-title">How long does it take to get listed?</span><span
+                                            class="icon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>
+                                            Creating an account takes only 2 minutes. From there, you can start drafting
+                                            the listing straight away - make sure you have your Venue information ready.
+                                            Once done, we'll review and publish your listing and advise on any possible
+                                            improvements.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button id="accordion-button-3" aria-expanded="false">
+                                        <span class="accordion-title">How much commission does Venue charge
+                                            hosts?</span><span class="icon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>
+                                            We charge a flat commission only when the booking was confirmed and the
+                                            event took place.
+
+                                            This means 10% for invoice-based Event Categories (Dinning, Bar, Restaurant
+                                            etc) and 15% for Categories with mandatory Online Payments enabled, such as
+                                            Meetings, Production and Dry Hire spaces.
+
+                                            There are no additional charges or listing fees, ever.
+
+                                            For example, if the booking subtotal is $100 for an Event, $10 would be paid
+                                            to Venue. If this is a Meeting/Production booking, $15 would be paid out
+                                            to Venue.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button id="accordion-button-4" aria-expanded="false">
+                                        <span class="accordion-title">How do Online Payments work on Venue?</span><span
+                                            class="icon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>
+                                            Venue is using an Online Payments System, currently provided by Stripe, a
+                                            global payment processing platform. Stripe Connect handles payment
+                                            compliance and allows for money to be sent from the client, through
+                                            Venue, to your connected Stripe account. Stripe Connect offers the best
+                                            and most secure method of payment, that can be initiated by both the client
+                                            and venue manager through a booking request or custom offer. Payouts will be
+                                            deposited into the venue’s bank account that is on file with us via transfer
+                                            (direct deposit) and will be processed within 7 days after the end of the
+                                            reservation. The commission is deducted automatically, so you do not need to
+                                            go back and forth with any invoices or transfers.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button id="accordion-button-5" aria-expanded="false">
+                                        <span class="accordion-title">How do payouts work? How am I going to get
+                                            paid?</span><span class="icon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>
+                                            For Meeting and Production categories, please check no.4 (Online Payments).
+                                            For Events, you notify us of the final invoice/spend once the event has
+                                            happened, based on which we'll issue a commission charge to you.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--CTA Section-->
+                <div class="my-6">
+                    <div class="overlay-cta" data-background="https://listkit.cssninja.io/img/photo/bg/cta-bg-2.jpeg"
+                        data-demo-background="img/photo/bg/cta-bg-2.jpeg">
+                        <div class="overlay-inner"></div>
+                        <div class="cta-inner">
+                            <h4 class="title is-2 is-bold text-inverted has-space">
+                                Learn more about being a Host
+                            </h4>
+                            <p class="text-inverted">
+                                Our team is here to help. Tell us about your space, and our team will reach out with a
+                                helping hand.
+                            </p>
+
+                            <div class="py-4">
+                                <a href="host.html" class="button is-primary is-raised-hover">Host an Event</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body End -->
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-head">
+                <div class="head-text">
+                    <h3>Have any questions?</h3>
+                    <p>Our support team answers your questions</p>
+                </div>
+                <div class="head-action">
+                    <div class="buttons">
+                        <a href="help-center.html" class="button is-primary raised action-button is-raised-hover">Help
+                            Center</a>
+                        <a href="help-center.html" target="_blank" class="button chat-button">Chat with us</a>
+                    </div>
+                </div>
+            </div>
+            <div class="columns footer-body">
+                <!-- Column -->
+                <div class="column is-4">
+                    <div class="p-t-10 p-b-10">
+                        <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
+                        <div class="footer-description p-t-10 p-b-10">
+                            Listkit is built for developers and designers. Its modular approach
+                            lets you create awesome webapps with incredible layouts and
+                            elements.
+                        </div>
+                    </div>
+                    <div>
+                        <span class="moto">Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
+                            Ninja.</span>
+                    </div>
+                </div>
+                <!-- Column -->
+                <div class="column is-7 is-offset-1">
+                    <div class="columns is-flex-tablet-p">
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Services</li>
+
+                                <li class="column-item"><a href="events.html">List Of Space</a></li>
+                                <li class="column-item"><a href="flats.html">Party Space</a></li>
+                                <li class="column-item"><a href="trips.html">Trips</a></li>
+                                <li class="column-item">
+                                    <a href="corporate.html">Corporate</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Links</li>
+                                <li class="column-item"><a href="signup.html">Register</a></li>
+                                <li class="column-item"><a href="login.html">Sign In</a></li>
+                                <li class="column-item"><a href="blog.html">News</a></li>
+                                <li class="column-item"><a href="careers.html">Careers</a></li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Help</li>
+                                <li class="column-item"><a href="host.html">Host an Venue</a></li>
+                                <li class="column-item"><a href="how.html">How it works</a></li>
+                                <li class="column-item"><a href="support.html">Support</a></li>
+                                <li class="column-item">
+                                    <a href="help-center.html">Help Center</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Legal</li>
+
+                                <li class="column-item"><a href="#">Terms of Service</a></li>
+                                <li class="column-item"><a href="#">Privacy policy</a></li>
+                                <li class="column-item"><a href="contact.html">Contact</a></li>
+                                <li class="column-item">
+                                    <a class="modal-trigger" data-modal="languages-modal">Language: EN</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>
+                    &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
+                    Rights Reserved.
+                </p>
+                <div>
+                    <div class="social-links">
+                        <a href="#"><i data-feather="facebook"></i></a>
+                        <a href="#"><i data-feather="twitter"></i></a>
+                        <a href="#"><i data-feather="linkedin"></i></a>
+                        <a href="#"><i data-feather="instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="./js/bundle.js"></script>
+</body>
+
+</html>
