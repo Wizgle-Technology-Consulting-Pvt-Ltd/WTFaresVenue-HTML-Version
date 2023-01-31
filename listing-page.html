@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ListKit</title>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MHNTCVZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHNTCVZ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="pageloader" class="pageloader is-left-to-right"></div>
+    <div id="infraloader" class="infraloader is-active"></div>
+
+    <main>
+        <!--Docked main Navbar-->
+
+        <!-- Header Start -->
+        <main>
+            <!--Docked main Navbar-->
+            <div class="main-navigation is-scrolled" x-data="initNavbar()" x-on:click.away="foldSearch()" x-bind:class="{
+        'is-expanded': searchExpanded,
+        '': !searchExpanded
+    }">
+                <div class="main-navigation--menu">
+                    <div class="container">
+                        <div class="main-navigation--menu-inner">
+                            <div class="left">
+                                <a href="/" class="brand">
+                                    <img class="light-logo" src="img/logo/logo-w.svg" alt="" />
+                                    <img class="dark-logo" src="img/logo/logo.svg" alt="" />
+                                </a>
+                            </div>
+
+                            <div class="center">
+                                <div class="search-fold" x-on:click="expandSearch()">
+                                    <span>Search events near you</span>
+                                    <button class="mini-search-button">
+                                        <i data-feather="search"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="right">
+                                <button class="navigation-link is-icon mx-4 modal-trigger" data-modal="languages-modal">
+                                    <i data-feather="globe"></i>
+                                </button>
+                                <div class="account-drop">
+                                    <button x-on:click="openDrop('account-drop')"
+                                        x-on:click.away="closeDrop('account-drop')">
+                                        <span class="image is-32x32">
+                                            <img x-show="$store.app.isLoggedIn === false" class="is-rounded"
+                                                src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                data-demo-src="img/photo/avatar/placeholder.png" alt="" />
+                                            <img x-show="$store.app.isLoggedIn === true" class="is-rounded"
+                                                src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                data-demo-src="https://listkit.cssninja.io/img/photo/avatar/placeholder.png"
+                                                alt="" />
+                                        </span>
+                                    </button>
+                                    <div x-show.transition="accountDropOpened" class="drop-menu">
+                                        <div class="drop-menu-inner">
+                                            <a href="login-page.html" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item is-heavy">Sign
+                                                In</a>
+                                            <a href="register-page.html" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item">Register</a>
+                                            <a href="" x-show="$store.app.isLoggedIn === false"
+                                                class="drop-menu-item">Location</a>
+                                            <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Account</a>
+                                            <a href="account-main.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Settings</a>
+                                            <a href="account-schedule.html" x-show="$store.app.isLoggedIn === true"
+                                                class="drop-menu-item">Schedule</a>
+                                            <hr />
+                                            <!-- <a href="host.html" class="drop-menu-item">Host Event</a> -->
+                                            <a href="" class="drop-menu-item">List Spaces</a>
+                                            <a href="" class="drop-menu-item">Explore Spaces</a>
+                                            <a href="how.html" class="drop-menu-item">Help</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-navigation--search">
+                    <form id="search-form">
+                        <div class="search-bar" x-on:click.away="disableSearch()">
+                            <div class="block-30"
+                                x-on:click.stop="openDrop('location-drop'), $refs.locationInput.focus()"
+                                x-on:click.away="closeDrop('location-drop')" x-bind:class="{
+                            'is-active': locationDropOpened,
+                            '': !locationDropOpened
+                        }">
+                                <div class="field">
+                                    <label>Location</label>
+                                    <div class="control">
+                                        <input x-ref="locationInput" required="required" placeholder="Where are you?" />
+                                        <button type="reset" class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div x-show.transition="locationDropOpened" class="location-dropdown">
+                                    <div class="location-dropdown-inner">
+                                        <a class="near-link">
+                                            <div class="near-icon">
+                                                <i data-feather="map-pin"></i>
+                                            </div>
+                                            <span>Explore Venue near you</span>
+                                        </a>
+                                        <div class="near-tags">
+                                            <h4>Places near you</h4>
+                                            <div class="tags">
+                                                <span class="tag">Nagpur</span>
+                                                <span class="tag">Mumbai</span>
+                                                <span class="tag">Pune</span>
+                                                <span class="tag">Akola</span>
+                                                <span class="tag">Nashik</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-20" x-on:click="openDrop('end-date-drop'), $refs.endDateInput.focus()"
+                                x-on:click.away="closeDrop('end-date-drop')" x-bind:class="{
+                            'is-active': endDateDropOpened,
+                            '': !endDateDropOpened
+                        }">
+                                <div class="field">
+                                    <label>Guests</label>
+                                    <div class="control">
+                                        <input x-ref="endDateInput" required="required" class="search-datepicker-end"
+                                            placeholder="Number of People" />
+                                        <button x-on:click="$refs.endDateInput.value = ''" type="reset"
+                                            class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-20" x-on:click="openDrop('start-date-drop'), $refs.startDateInput.focus()"
+                                x-on:click.away="closeDrop('start-date-drop')" x-bind:class="{
+                            'is-active': startDateDropOpened,
+                            '': !startDateDropOpened
+                        }">
+                                <div class="field">
+                                    <label>Starting</label>
+                                    <div class="control">
+                                        <input x-ref="startDateInput" required="required"
+                                            class="search-datepicker-start" placeholder="Select a date" />
+                                        <button type="reset" class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-30" x-on:click="openDrop('type-drop'), $refs.typeInput.focus()"
+                                x-on:click.away="closeDrop('type-drop')" x-bind:class="{
+                            'is-active': typeDropOpened,
+                            '': !typeDropOpened
+                        }">
+                                <div class="field has-search-button">
+                                    <label>Venue Type</label>
+                                    <div class="control">
+                                        <input x-ref="typeInput" required="required" placeholder="Pick a type" />
+                                        <button type="reset" class="clear-value">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div x-show.transition="typeDropOpened" class="type-dropdown">
+                                    <div class="type-dropdown-inner">
+                                        <div class="type-block">
+                                            <div class="meta">
+                                                <span>General audience</span>
+                                                <span>Suitable for everyone</span>
+                                            </div>
+                                            <div class="action">
+                                                <label class="form-switch is-primary">
+                                                    <input type="radio" name="search_type_radio" class="is-switch"
+                                                        checked />
+                                                    <i></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="type-block">
+                                            <div class="meta">
+                                                <span>Family</span>
+                                                <span>Suitable for kids and families</span>
+                                            </div>
+                                            <div class="action">
+                                                <label class="form-switch is-primary">
+                                                    <input type="radio" name="search_type_radio" class="is-switch" />
+                                                    <i></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="type-block">
+                                            <div class="meta">
+                                                <span>Adults only</span>
+                                                <span>Only for adults and grown ups</span>
+                                            </div>
+                                            <div class="action">
+                                                <label class="form-switch is-primary">
+                                                    <input type="radio" name="search_type_radio" class="is-switch" />
+                                                    <i></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="search-button" x-bind:class="{
+                                'is-expanded': searchActive,
+                                '': !searchActive
+                            }">
+                                    <i data-feather="search"></i>
+                                    <span> Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <div class="progress-wrap" x-data="initBackToTop()" x-init="setup()" x-on:scroll.window="scroll()" x-bind:class="{
+        'active-progress': scrolled,
+        '': !scrolled,
+        }" x-on:click="scrollTop()">
+            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+            </svg>
+        </div>
+
+        <div id="languages-modal" class="modal">
+            <div class="modal-background modal-dismiss"></div>
+            <div class="modal-content">
+                <!--Modal card-->
+                <div class="card">
+                    <header class="card-header">
+                        <div class="card-header-title">
+                            <span>Select a language</span>
+                        </div>
+                        <button class="modal-dismiss">
+                            <span class="icon">
+                                <i data-feather="x"></i>
+                            </span>
+                        </button>
+                    </header>
+                    <div class="card-content">
+                        <div class="check-cards-group">
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" checked />
+                                <div class="check-card-inner">
+                                    <img src="https://listkit.cssninja.io/img/icons/flags/united-states-of-america.svg"
+                                        data-demo-src="img/icons/flags/united-states-of-america.svg" alt="" />
+                                    <div class="meta">
+                                        <span>English [US]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://listkit.cssninja.io/img/icons/flags/england.svg"
+                                        data-demo-src="img/icons/flags/england.svg" alt="" />
+                                    <div class="meta">
+                                        <span>English [UK]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+                                        data-demo-src="img/icons/flags/france.svg" alt="" />
+                                    <div class="meta">
+                                        <span>Hindi</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Card-->
+                            <div class="check-card">
+                                <input type="radio" name="language_selection" />
+                                <div class="check-card-inner">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB8EzmQL-8JLTm4oqozrK9DYliZ3Ez2xpXVHPzlhm0_EAGuvlPjw_E_a0swQC5PCxD2BE&usqp=CAU"
+                                        data-demo-src="img/icons/flags/germany.svg" alt="" />
+                                    <div class="meta">
+                                        <span>Marathi</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header End -->
+
+
+        <div class="dual-container">
+            <div class="dual-container-left">
+                <div class="left-header">
+                    <h4>More than 400 Venue</h4>
+                    <h2 class="title is-3 is-narrow">Discover Venue near you</h2>
+                    <div class="filters py-4">
+                        <div class="buttons">
+                            <button class="button is-small is-rounded">
+                                Flexible cancellation
+                            </button>
+                            <button class="button is-small is-rounded is-active">
+                                Entire flat
+                            </button>
+                            <button class="button is-small is-rounded">Price</button>
+                            <button class="button is-small is-rounded is-active">
+                                Instant booking
+                            </button>
+                            <button class="button is-small is-rounded">More Filters</button>
+                        </div>
+                    </div>
+                    <p>
+                        Before booking, please make sure to check our
+                        <a class="underlink mx-2">Covid-19 travel guide</a>
+                    </p>
+                </div>
+
+                <!--Carousel offers-->
+                <div class="left-offers">
+                    <div>
+                        <div class="flat-carousels-wrapper" x-data="initFlatCarousels()">
+                            <!--Title-->
+                            <h4 class="title is-5 is-narrow">From your last search</h4>
+
+                            <!--Scheduled events carousel-->
+                            <div class="flats">
+                                <div class="flats-inner glide flat-carousel">
+                                    <div class="glide__track" data-glide-el="track">
+                                        <!--Carousel-->
+                                        <ul class="glide__slides">
+                                            <!--Carousel item-->
+                                            <li class="glide__slide map-popup-item" data-location="0">
+                                                <div class="flat">
+                                                    <div class="flat-image map-popup-trigger"
+                                                        data-background="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/74/1b/64/exterior.jpg?w=1100&h=-1&s=1"
+                                                        data-demo-background="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/74/1b/64/exterior.jpg?w=1100&h=-1&s=1">
+                                                        <div class="action-bar">
+                                                            <button class="button wishlist-button">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flat-content">
+                                                        <div class="flat-rating">
+                                                            <i data-feather="star"></i>
+                                                            <span>3,72</span>
+                                                            <span class="px-2">·</span>
+                                                            <span>Nagpur, Maharashtra</span>
+                                                        </div>
+                                                        <p class="flat-name">
+                                                            <a>Radission Blu Hotel, Nagpur</a>
+                                                        </p>
+                                                        <p class="flat-price">
+                                                            Starting from $210 <small>/night</small>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!--Carousel item-->
+                                            <li class="glide__slide map-popup-item" data-location="1">
+                                                <div class="flat">
+                                                    <div class="flat-image map-popup-trigger"
+                                                        data-background="https://www.chattarpurfarms.com/imgs/7.jpg"
+                                                        data-demo-background="https://www.chattarpurfarms.com/imgs/7.jpg">
+                                                        <div class="action-bar">
+                                                            <button class="button wishlist-button">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flat-content">
+                                                        <div class="flat-rating">
+                                                            <i data-feather="star"></i>
+                                                            <span>4,69</span>
+                                                            <span class="px-2">·</span>
+                                                            <span>Nagpur, Maharashtra</span>
+                                                        </div>
+                                                        <p class="flat-name">
+                                                            <a>Chattarpur Farms Guest Building</a>
+                                                        </p>
+                                                        <p class="flat-price">
+                                                            Starting from $140 <small>/night</small>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!--Carousel item-->
+                                            <li class="glide__slide map-popup-item" data-location="2">
+                                                <div class="flat">
+                                                    <div class="flat-image map-popup-trigger"
+                                                        data-background="https://lh3.googleusercontent.com/qGsJ4zM_k-aCzzICvEQKWF08uIlrrKupycDiSjAagG7Mpy8k-yKeqHTEZgysfpTO24TyAl1cDlZLWKhLfa9lmZJBZpA=w256-rw"
+                                                        data-demo-background="https://lh3.googleusercontent.com/qGsJ4zM_k-aCzzICvEQKWF08uIlrrKupycDiSjAagG7Mpy8k-yKeqHTEZgysfpTO24TyAl1cDlZLWKhLfa9lmZJBZpA=w256-rw">
+                                                        <div class="action-bar">
+                                                            <button class="button wishlist-button">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flat-content">
+                                                        <div class="flat-rating">
+                                                            <i data-feather="star"></i>
+                                                            <span>4,87</span>
+                                                            <span class="px-2">·</span>
+                                                            <span>Nagpur, Maharashtra</span>
+                                                        </div>
+                                                        <p class="flat-name">
+                                                            <a>The East India Company - The Restro Lounge</a>
+                                                        </p>
+                                                        <p class="flat-price">
+                                                            Starting from $195 <small>/night</small>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!--Carousel item-->
+                                            <li class="glide__slide map-popup-item" data-location="3">
+                                                <div class="flat">
+                                                    <div class="flat-image map-popup-trigger"
+                                                        data-background="https://b.zmtcdn.com/data/pictures/6/19574556/1cb1b77568453a40bedfc3b3396d3c63.jpg"
+                                                        data-demo-background="https://b.zmtcdn.com/data/pictures/6/19574556/1cb1b77568453a40bedfc3b3396d3c63.jpg">
+                                                        <div class="action-bar">
+                                                            <button class="button wishlist-button">
+                                                                <i data-feather="heart"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flat-content">
+                                                        <div class="flat-rating">
+                                                            <i data-feather="star"></i>
+                                                            <span>4,12</span>
+                                                            <span class="px-2">·</span>
+                                                            <span>Nagpur, Maharashtra</span>
+                                                        </div>
+                                                        <p class="flat-name">
+                                                            <a>High Steaks Nagpur</a>
+                                                        </p>
+                                                        <p class="flat-price">
+                                                            Starting from $90 <small>/night</small>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="glide__arrows" data-glide-el="controls">
+                                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                                            <i data-feather="arrow-left"></i>
+                                        </button>
+                                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                                            <i data-feather="arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="py-4">
+                        <!--Title-->
+                        <h4 class="title is-5">Other locations</h4>
+
+                        <!--Featured categories-->
+                        <div class="columns is-multiline slide-columns">
+                            <!--Featured Category-->
+                            <div class="column is-4">
+                                <a class="media-flex-center">
+                                    <figure class="image is-64x64">
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/1.svg"
+                                            data-demo-src="img/icons/locations/1.svg" />
+                                    </figure>
+                                    <div class="flex-meta">
+                                        <span class="is-block">Egypt</span>
+                                        <span class="is-block">23 flats</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--Featured Category-->
+                            <div class="column is-4">
+                                <a class="media-flex-center">
+                                    <figure class="image is-64x64">
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/2.svg"
+                                            data-demo-src="img/icons/locations/2.svg" />
+                                    </figure>
+                                    <div class="flex-meta">
+                                        <span class="is-block">Belgium</span>
+                                        <span class="is-block">48 flats</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--Featured Category-->
+                            <div class="column is-4">
+                                <a class="media-flex-center">
+                                    <figure class="image is-64x64">
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/4.svg"
+                                            data-demo-src="img/icons/locations/4.svg" />
+                                    </figure>
+                                    <div class="flex-meta">
+                                        <span class="is-block">Morocco</span>
+                                        <span class="is-block">12 flats</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--Featured Category-->
+                            <div class="column is-4">
+                                <a class="media-flex-center">
+                                    <figure class="image is-64x64">
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/3.svg"
+                                            data-demo-src="img/icons/locations/3.svg" />
+                                    </figure>
+                                    <div class="flex-meta">
+                                        <span class="is-block">Scotland</span>
+                                        <span class="is-block">19 flats</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--Featured Category-->
+                            <div class="column is-4">
+                                <a class="media-flex-center">
+                                    <figure class="image is-64x64">
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/5.svg"
+                                            data-demo-src="img/icons/locations/5.svg" />
+                                    </figure>
+                                    <div class="flex-meta">
+                                        <span class="is-block">Costa del Sol</span>
+                                        <span class="is-block">91 flats</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--Featured Category-->
+                            <div class="column is-4">
+                                <a class="media-flex-center">
+                                    <figure class="image is-64x64">
+                                        <img class="is-rounded-md"
+                                            src="https://listkit.cssninja.io/img/icons/locations/6.svg"
+                                            data-demo-src="img/icons/locations/6.svg" />
+                                    </figure>
+                                    <div class="flex-meta">
+                                        <span class="is-block">Grand Canyon</span>
+                                        <span class="is-block">15 flats</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flat-list py-6">
+                    <!--Title-->
+                    <h4 class="title is-5">More than 400 flats</h4>
+
+                    <!--List-->
+                    <div class="flat-list-inner">
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="4">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://images.trvl-media.com/lodging/9000000/8440000/8439200/8439181/25ebe32c.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+                                data-demo-background="img/photo/content/events/carousel/37.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>Sadar, Nagpur, Maharashtra 440001</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>Tuli International</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>2 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>3 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 beds</span>
+                                        <span class="px-1">·</span>
+                                        <span>1 bathroom</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$130/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,93</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="5">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://lh3.googleusercontent.com/Kg7jfajMYZEhaiZkAGwe9ydEYT4-etkXFE4SlinSLyU1CG48E8uepXRvTiYYozADe3SEojv_y8H7lov8-JzxjJCd=w746-h498-l95-e31"
+                                data-demo-background="img/photo/content/events/carousel/38.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>Kawtha Rd, New Khasala, Maharashtra 441001</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>Lamba Celebrations</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>4 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>5 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>3 beds</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 bathrooms</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$210/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,67</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="6">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://cf.bstatic.com/xdata/images/hotel/max1024x768/77773581.jpg?k=bc8e7a90ee54eaed5eb797ab768497213f38c73fdd44a4f1ca74a7a9499821a7&o=&hp=1"
+                                data-demo-background="img/photo/content/events/carousel/39.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>Wardha Road, Flyover, opp. Mihan, Nagpur, Maharashtra 441108</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>Le Meridien</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>5 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>4 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>3 beds</span>
+                                        <span class="px-1">·</span>
+                                        <span>1 bathroom</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$180/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,47</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="7">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://image.wedmegood.com/resized/450X/uploads/member/1190281/1586556695_Screenshot_from_2020_04_11_03_34_39.png?crop=59,1,784,441"
+                                data-demo-background="img/photo/content/events/carousel/40.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>237, Temple Rd, Civil Lines, Nagpur, Maharashtra 440001</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>Rani Kothi Banquet Hall</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>2 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>1 bed</span>
+                                        <span class="px-1">·</span>
+                                        <span>1 bathroom</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$110/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,69</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="8">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://media.weddingz.in/images/244199509ab295605e93a2061263222c/cp-club-cp-club-lawn-1-lawn-2-25.jpg"
+                                data-demo-background="img/photo/content/events/carousel/41.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>5344+389, Civil Lines, Nagpur, Maharashtra 440001</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>C P Club</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>6 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>5 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>3 beds</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 bathrooms</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$240/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,78</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="9">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://lh3.googleusercontent.com/p/AF1QipOPkFIJZfsW_0HBPRtZCgqXgY_5lhtHvkltXvJr=s680-w680-h510"
+                                data-demo-background="img/photo/content/events/carousel/42.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>56, Temple Rd, Dobhi Nagar, Civil Lines, Nagpur, Maharashtra 440001</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>Chitnavis Centre</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>4 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>3 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 beds</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 bathrooms</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$210/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,77</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="10">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://lh3.googleusercontent.com/p/AF1QipO-Md-yIXpxpONFD8mrg25TLHCh2IGfrX9C8yu4=s680-w680-h510"
+                                data-demo-background="img/photo/content/events/carousel/43.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>Amdar Niwas, Temple Rd, Civil Lines, Nagpur, Maharashtra 440001</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>Dr. Vasantrao Deshpande Memorial Hall</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>2 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>3 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 beds</span>
+                                        <span class="px-1">·</span>
+                                        <span>1 bathroom</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$160/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,21</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--List item-->
+                        <div class="flat-list-item map-popup-item" data-location="11">
+                            <div class="action-bar">
+                                <button class="button wishlist-button">
+                                    <i data-feather="heart"></i>
+                                </button>
+                            </div>
+                            <div class="list-item-image map-popup-trigger"
+                                data-background="https://images.jdmagicbox.com/comp/nagpur/m5/0712px712.x712.180613182501.r5m5/catalogue/ambika-farms-katol-road-nagpur-resorts-h7y94.jpg"
+                                data-demo-background="img/photo/content/events/carousel/44.jpg"></div>
+                            <div class="list-item-content">
+                                <div class="list-item-info">
+                                    <div class="list-item-precontent">
+                                        <span>35th Milestone, Katol Road, Behind IMT College, Nagpur, Maharashtra 441502"</span>
+                                    </div>
+                                    <p class="list-item-name">
+                                        <a>Ambika Farms</a>
+                                    </p>
+                                    <p class="list-item-details">
+                                        <span>4 people</span>
+                                        <span class="px-1">·</span>
+                                        <span>3 rooms</span>
+                                        <span class="px-1">·</span>
+                                        <span>4 beds</span>
+                                        <span class="px-1">·</span>
+                                        <span>2 bathrooms</span>
+                                    </p>
+                                </div>
+                                <div class="list-item-amount">
+                                    <span>$130/night</span>
+                                    <div class="list-item-rating">
+                                        <i data-feather="star"></i>
+                                        <span>4,22</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="pagination map-pagination is-centered is-rounded mt-4 mb-6" role="navigation"
+                    aria-label="pagination">
+                    <a class="pagination-previous">Previous</a>
+                    <a class="pagination-next">Next page</a>
+                    <ul class="pagination-list">
+                        <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                        <li><span class="pagination-ellipsis">&hellip;</span></li>
+                        <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                        <li>
+                            <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
+                        </li>
+                        <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                        <li><span class="pagination-ellipsis">&hellip;</span></li>
+                        <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="dual-container-right" id="places-map" x-data="initFlatsMap()" data-long="-4.501974124414064"
+                data-lat="36.62256952621055"></div>
+        </div>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-head">
+                <div class="head-text">
+                    <h3>Have any questions?</h3>
+                    <p>Our support team answers your questions</p>
+                </div>
+                <div class="head-action">
+                    <div class="buttons">
+                        <a href="help-center.html" class="button is-primary raised action-button is-raised-hover">Help
+                            Center</a>
+                        <a href="help-center.html" target="_blank" class="button chat-button">Chat with us</a>
+                    </div>
+                </div>
+            </div>
+            <div class="columns footer-body">
+                <!-- Column -->
+                <div class="column is-4">
+                    <div class="p-t-10 p-b-10">
+                        <img class="small-footer-logo" src="img/logo/logo.svg" alt="" />
+                        <div class="footer-description p-t-10 p-b-10">
+                            Listkit is built for developers and designers. Its modular approach
+                            lets you create awesome webapps with incredible layouts and
+                            elements.
+                        </div>
+                    </div>
+                    <div>
+                        <span class="moto">Designed and coded with <ion-icon name="heart"></ion-icon> by CSS
+                            Ninja.</span>
+                    </div>
+                </div>
+                <!-- Column -->
+                <div class="column is-7 is-offset-1">
+                    <div class="columns is-flex-tablet-p">
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Services</li>
+
+                                <li class="column-item"><a href="events.html">List Of Space</a></li>
+                                <li class="column-item"><a href="flats.html">Party Space</a></li>
+                                <li class="column-item"><a href="trips.html">Trips</a></li>
+                                <li class="column-item">
+                                    <a href="corporate.html">Corporate</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Links</li>
+                                <li class="column-item"><a href="signup.html">Register</a></li>
+                                <li class="column-item"><a href="login.html">Sign In</a></li>
+                                <li class="column-item"><a href="blog.html">News</a></li>
+                                <li class="column-item"><a href="careers.html">Careers</a></li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Help</li>
+                                <li class="column-item"><a href="host.html">Host an Venue</a></li>
+                                <li class="column-item"><a href="how.html">How it works</a></li>
+                                <li class="column-item"><a href="support.html">Support</a></li>
+                                <li class="column-item">
+                                    <a href="help-center.html">Help Center</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Column -->
+                        <div class="column">
+                            <ul class="footer-column">
+                                <li class="column-header">Legal</li>
+
+                                <li class="column-item"><a href="#">Terms of Service</a></li>
+                                <li class="column-item"><a href="#">Privacy policy</a></li>
+                                <li class="column-item"><a href="contact.html">Contact</a></li>
+                                <li class="column-item">
+                                    <a class="modal-trigger" data-modal="languages-modal">Language: EN</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>
+                    &copy; 2021-2022 | <a href="https://cssninja.io">Css Ninja</a> | All
+                    Rights Reserved.
+                </p>
+                <div>
+                    <div class="social-links">
+                        <a href="#"><i data-feather="facebook"></i></a>
+                        <a href="#"><i data-feather="twitter"></i></a>
+                        <a href="#"><i data-feather="linkedin"></i></a>
+                        <a href="#"><i data-feather="instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="./js/bundle.js"></script>
+</body>
+
+</html>
